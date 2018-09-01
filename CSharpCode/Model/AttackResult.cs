@@ -14,6 +14,7 @@ public class AttackResult
     
     // The result of the attack
     // Returns: The result of the attack
+    // Properties below this are fairly self explanatory.
     public ResultOfAttack Value
 	{
         get
@@ -66,14 +67,17 @@ public class AttackResult
     // Set the _value to the PossibleAttack value, and the _ship to the ship
     // Parameter 'value': either hit, miss, destroyed, shotalready
     // Parameter 'ship': the ship information
+    // Parameter 'text': text to display for the attack result
+    // Parameter 'row': row on the board hit
+    // Parameter 'column': column on the board hit
+
     public AttackResult(ResultOfAttack value, Ship ship, string text, int row, int column) : 
         this(value, text, row, column)
 	{
         _ship = ship;
     }
 
-    // Displays the textual information about the attack
-    // Returns: The textual information about the attack
+    // Returns The textual information about the attack
     public override string ToString()
 	{
         if((_Ship == null))

@@ -1,4 +1,4 @@
-// The values that are visable for a given tile.
+// The values that are visible for a given tile.
 public enum TileView
 {
     // The viewer can see sea

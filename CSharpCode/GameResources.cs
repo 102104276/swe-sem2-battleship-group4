@@ -1,7 +1,13 @@
+/*
+Game Resources is in charge of loading and managing all game assets,
+including the removal of them from memory once the game has concluded.
+*/
+
 using SwinGameSDK;
 using System.Collections.Generic;
 public class GameResources
 {
+	// Loads all game fonts.
     private static void LoadFonts()
 	{
         GameResources.NewFont("ArialLarge", "arial.ttf", 80);
@@ -10,6 +16,7 @@ public class GameResources
         GameResources.NewFont("Menu", "ffaccess.ttf", 8);
     }
 	
+	// Loads all images for the game.
     private static void LoadImages()
 	{
         // Backgrounds
@@ -34,6 +41,7 @@ public class GameResources
         GameResources.NewImage("Splash", "splash.png");
     }
     
+    // Loads all sounds required for the game.
     private static void LoadSounds()
 	{
         GameResources.NewSound("Error", "error.wav");
@@ -45,6 +53,7 @@ public class GameResources
         GameResources.NewSound("Lose", "lose.wav");
     }
     
+    //Loads music for the game.
     private static void LoadMusic()
 	{
         GameResources.NewMusic("Background", "horrordrone.mp3");
@@ -132,6 +141,7 @@ public class GameResources
         GameResources.EndLoadingScreen(width, height);
     }
     
+    // Handles the display of the loading screen.
     private static void ShowLoadingScreen()
 	{
         _background = SwinGame.LoadBitmap(SwinGame.PathToResource("SplashBack.png", ResourceKind.BitmapResource));
@@ -146,6 +156,7 @@ public class GameResources
         GameResources.PlaySwinGameIntro();
     }
     
+    // Plays the very annoying SwinGame intro sequence.
     private static void PlaySwinGameIntro()
 	{
         const int ANI_CELL_COUNT = 11;
@@ -162,6 +173,9 @@ public class GameResources
         SwinGame.Delay(1500);
     }
     
+    // Displays a message.
+    // Parameter 'message': the message to display
+    // Parameter 'number': currently not in use.
     private static void ShowMessage(string message, int number)
 	{
         const int BG_Y = 453;
@@ -188,6 +202,9 @@ public class GameResources
         SwinGame.ProcessEvents();
     }
     
+    // Displays the end loading screen
+    // Parameter 'width': the width of the end loading screen.
+    // Parameter 'height': the height of the end loading screen.
     private static void EndLoadingScreen(int width, int height)
 	{
         SwinGame.ProcessEvents();
@@ -203,36 +220,42 @@ public class GameResources
         SwinGame.ChangeScreenSize(width, height);
     }
     
+    // Adds a new font to the game assets.
     private static void NewFont(string fontName, string filename, int size)
 	{
         _fonts.Add(fontName, SwinGame.LoadFont(SwinGame.PathToResource(filename, ResourceKind.FontResource), size));
     }
     
+    // Adds a new image to the game assets.
     private static void NewImage(string imageName, string filename)
 	{
         _images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(filename, ResourceKind.BitmapResource)));
     }
     
+    // Adds a new 'transparent colour image' to the game assets
     private static void NewTransparentColorImage(string imageName, string fileName, Color transColor)
 	{
         _images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(fileName, ResourceKind.BitmapResource)));
     }
-    
+    // A variation of the spelling for the above method.
     private static void NewTransparentColourImage(string imageName, string fileName, Color transColor)
 	{
         GameResources.NewTransparentColorImage(imageName, fileName, transColor);
     }
     
+    // Adds a new sound to the game assets
     private static void NewSound(string soundName, string filename)
 	{
         _sounds.Add(soundName, Audio.LoadSoundEffect(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
     }
     
+    // Adds a new music file to the game assets
     private static void NewMusic(string musicName, string filename)
 	{
         _music.Add(musicName, Audio.LoadMusic(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
     }
     
+    // Removes all fonts from memory.
     private static void FreeFonts()
 	{
         Font obj;
@@ -243,6 +266,7 @@ public class GameResources
         
     }
     
+    // Removes all bitmaps from memory.
     private static void FreeImages()
 	{
         Bitmap obj;
@@ -253,6 +277,7 @@ public class GameResources
         
     }
     
+    // Removes all sounds from memory.
     private static void FreeSounds()
 	{
         SoundEffect obj;
@@ -263,6 +288,7 @@ public class GameResources
         
     }
     
+    // Removes all music files from memory.
     private static void FreeMusic()
 	{
         Music obj;
@@ -273,6 +299,7 @@ public class GameResources
         
     }
     
+    // Collectively removes all resources for the game from memory.
     public static void FreeResources()
 	{
         GameResources.FreeFonts();

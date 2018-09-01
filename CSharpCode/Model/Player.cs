@@ -148,6 +148,7 @@ public class Player {
         }
     }
     
+    // A copy of the method below.
     public IEnumerator<Ship> GetShipEnumerator()
 	{
         Ship[,] result;
@@ -200,6 +201,7 @@ public class Player {
         return result;
     }
     
+    // Places ships in random positions on the grid.
     public virtual void RandomizeDeployment()
 	{
         bool placementSuccessful;
