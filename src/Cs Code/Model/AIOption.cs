@@ -1,8 +1,7 @@
 // '' <summary>
 // '' The different AI levels.
 // '' </summary>
-Public Enum AIOption {
-    
+public enum AIOption {
     // '' <summary>
     // '' Easy, total random shooting
     // '' </summary>

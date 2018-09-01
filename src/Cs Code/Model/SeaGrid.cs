@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 /*
  Summary:
  The SeaGrid is the grid upon which the ships are deployed.
@@ -7,65 +10,79 @@
  grid. This can be used in conjuncture with the SeaGridAdapter to
  mask the position of the ships.
  */
+namespace BattleShips
+{
+    public class SeaGrid : ISeaGrid
+    {
 
-public class SeaGrid : ISeaGrid {
+        private const int _WIDTH = 10;
 
-    private const int _WIDTH = 10;
+        private const int _HEIGHT = 10;
 
-    private const int _HEIGHT = 10;
+        private Dictionary<ShipName, Ship> _Ships;
 
-    private Dictionary<ShipName, Ship> _Ships;
+        private int _ShipsKilled = 0;
 
-    private int _ShipsKilled = 0;
+        /*
+         Summary:
+         The sea grid has changed and should be redrawn.
+         */
 
-    /*
-     Summary:
-     The sea grid has changed and should be redrawn.
-     */
+        public event EventHandler Changed;
 
-    public event EventHandler Changed;
+        /*
+         Summary:
+         The width of the sea grid.
 
-    /*
-     Summary:
-     The width of the sea grid.
+         Value: The width of the sea grid.
+         returns: The width of the sea grid.
+         */
 
-     Value: The width of the sea grid.
-     Returns: The width of the sea grid.
-     */
+        public int Width
+        {
+            get
+            {
+                return _WIDTH;
+            }
+        }
 
-    public int Width {
-        get {
-            return _WIDTH;
+        public int Height
+        {
+            get
+            {
+                return _HEIGHT;
+            }
+        }
+
+        public int ShipsKilled
+        {
+            get
+            {
+                return _ShipsKilled;
+            }
+        }
+
+        public TileView this[int x, int y]
+        {
         }
     }
-
-    public int Height {
-        get {
-            return _HEIGHT;
-        }
+    Endclass Unknown
+    {
     }
-
-    public int ShipsKilled {
-        get {
-            return _ShipsKilled;
-        }
-    }
-
-    public TileView this[int x, int y] {
-    }
-}
-Endclass Unknown {
-}
 
     /*
      Summary:
      AllDeployed checks if all the ships are deployed
      */
 
-    public bool AllDeployed {
-        get {
-            foreach (Ship s in _Ships.Values) {
-                if (!s.IsDeployed) {
+    public bool AllDeployed
+    {
+        get
+        {
+            foreach (Ship s in _Ships.Values)
+            {
+                if (!s.IsDeployed)
+                {
                     return false;
                 }
 
@@ -75,13 +92,16 @@ Endclass Unknown {
         }
     }
 
-    public DummyClass(Dictionary<ShipName, Ship> ships) {
+    public Dummyclass(Dictionary<ShipName, Ship> ships)
+    {
         // fill array with empty Tiles
         int i;
         for (i = 0; (i
-                    <= (Width - 1)); i++) {
+                    <= (Width - 1)); i++)
+        {
             for (int j = 0; (j
-                        <= (Height - 1)); j++) {
+                        <= (Height - 1)); j++)
+            {
                 _GameTiles(i, j) = new Tile(i, j, null);
             }
 
@@ -99,7 +119,8 @@ Endclass Unknown {
      Parameter: direction - the direction the ship is going
      */
 
-    public void MoveShip(int row, int col, ShipName ship, Direction direction) {
+    public void MoveShip(int row, int col, ShipName ship, Direction direction)
+    {
         Ship newShip = _Ships[ship];
         newShip.Remove();
         AddShip(row, col, direction, newShip);
@@ -115,18 +136,22 @@ Endclass Unknown {
      Parameter name="newShip">the ship
      */
 
-    private void AddShip(int row, int col, Direction direction, Ship newShip) {
-        try {
+    private void AddShip(int row, int col, Direction direction, Ship newShip)
+    {
+        try
+        {
             int size = newShip.Size;
             int currentRow = row;
             int currentCol = col;
             int dRow;
             int dCol;
-            if ((direction == direction.LeftRight)) {
+            if ((direction == direction.LeftRight))
+            {
                 dRow = 0;
                 dCol = 1;
             }
-            else {
+            else
+            {
                 dRow = 1;
                 dCol = 0;
             }
@@ -134,11 +159,13 @@ Endclass Unknown {
             // place ship's tiles in array and into ship object
             int i;
             for (i = 0; (i
-                        <= (size - 1)); i++) {
+                        <= (size - 1)); i++)
+            {
                 if (((currentRow < 0)
                             || ((currentRow >= Width)
                             || ((currentCol < 0)
-                            || (currentCol >= Height))))) {
+                            || (currentCol >= Height)))))
+                {
                     throw new InvalidOperationException("Ship can\'t fit on the board");
                 }
 
@@ -149,12 +176,14 @@ Endclass Unknown {
 
             newShip.Deployed(direction, row, col);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             newShip.Remove();
             // if fails remove the ship
             throw new ApplicationException(e.Message);
         }
-        finally {
+        finally
+        {
             Changed(this, EventArgs.Empty);
         }
 
@@ -167,24 +196,29 @@ Endclass Unknown {
 
      Parameter: row - the row at which is being shot
      Parameter: col - the cloumn at which is being shot
-     Returns: An attackresult (hit, miss, sunk, shotalready)
+     returns: An attackresult (hit, miss, sunk, shotalready)
      */
 
-    public AttackResult HitTile(int row, int col) {
-        try {
+    public AttackResult HitTile(int row, int col)
+    {
+        try
+        {
             // tile is already hit
-            if (_GameTiles(row, col).Shot) {
+            if (_GameTiles(row, col).Shot)
+            {
                 return new AttackResult(ResultOfAttack.ShotAlready, ("have already attacked [" + (col + ("," + (row + "]!")))), row, col);
             }
 
             _GameTiles(row, col).Shoot();
             // there is no ship on the tile
-            if ((_GameTiles(row, col).Ship == null)) {
+            if ((_GameTiles(row, col).Ship == null))
+            {
                 return new AttackResult(ResultOfAttack.Miss, "missed", row, col);
             }
 
             // all ship's tiles have been destroyed
-            if (_GameTiles(row, col).Ship.IsDestroyed) {
+            if (_GameTiles(row, col).Ship.IsDestroyed)
+            {
                 _GameTiles(row, col).Shot = true;
                 _ShipsKilled++;
                 return new AttackResult(ResultOfAttack.Destroyed, _GameTiles(row, col).Ship, "destroyed the enemy\'s", row, col);
@@ -193,8 +227,10 @@ Endclass Unknown {
             // else hit but not destroyed
             return new AttackResult(ResultOfAttack.Hit, "hit something!", row, col);
         }
-        finally {
+        finally
+        {
             Changed(this, EventArgs.Empty);
         }
 
     }
+}
