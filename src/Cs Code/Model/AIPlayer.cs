@@ -1,72 +1,94 @@
-// Summary: The AIPlayer is a type of player. It can readomly deploy ships, it also has the functionality to generate coordinates and shoot at tiles
+/*
+    Summary:
+    The AIPlayer is a type of player. It can randomly deploy ships, it also has the
+    functionality to generate coordinates and shoot at tiles
+*/
 
 using System;
 using System.Collections.Generic;
-using SwinGameSDK;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Security;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 
 namespace BattleShips
 {
+
     public abstract class AIPlayer : Player
     {
-        //Summary: Location can store the location of the last hit made by an AI Player. The use of which determines the difficulty.
+
+        /* 
+            Summary: Location can store the location of the last hit made by an
+            AI Player. The use of which determines the difficulty.
+        */
+
         protected class Location
         {
-            private int _Row;
-            private int _Column;
+            private int _row;
+            private int _column;
 
-            //Summary: The row of the shot
-            //Value: The row of the shot
+            // Summary: The row of the shot
+            // Value: The row of the shot
             //Returns: The row of the shot
+
             public int Row
             {
                 get
                 {
-                    return _Row;
+                    return _row;
                 }
                 set
                 {
-                    _Row = value;
+                    _row = value;
                 }
             }
 
-            //Summary: The column of the shot
-            //Value: The column of the shot
-            //Returns: The column of the shot
+            // Summary: The column of the shot
+            // Value: The column of the shot
+            // Returns: The column of the shot
+
             public int Column
             {
                 get
                 {
-                    return _Column;
+                    return _column;
                 }
                 set
                 {
-                    _Column = value;
+                    _column = value;
                 }
             }
 
             // Summary: Sets the last hit made to the local variables
-            //Row: the row of the location
-            //Column: the column of the location
+            // Parameter: row - the row of the location
+            // Parameter: column - the column of the location
+
             public Location(int row, int column)
             {
-                _Column = column;
-                _Row = row;
+                _column = column;
+                _row = row;
             }
 
-            //Summary: Check if two locations are equal
-            //This: location 1
-            //Other: location 2
-            //Returns>true if location 1 and location 2 are at the same spot
+            // Summary: Check if two locations are equal
+            // Parameter: this - location 1
+            // Parameter: other - location 2
+            // Returns: true if location 1 and location 2 are at the same spot
 
             public static bool operator ==(Location @this, Location other)
             {
                 return @this != null && other != null && @this.Row == other.Row && @this.Column == other.Column;
             }
 
-            //Summary: Check if two locations are not equal
-            //This: location 1
-            //Other: location 2
-            //Returns: true if location 1 and location 2 are not at the same spot
+            // Summary: Check if two locations are not equal
+            // Parameter: this - location 1
+            // Parameter: other - location 2
+            // Retuns: true if location 1 and location 2 are not at the same spot
 
             public static bool operator !=(Location @this, Location other)
             {
@@ -74,35 +96,37 @@ namespace BattleShips
             }
         }
 
-
+        // Summary: empty method
         public AIPlayer(BattleShipsGame game) : base(game)
         {
         }
 
-        //Summary: Generate a valid row, column to shoot at
-        //Row: output the row for the next shot
-        //Column: output the column for the next show
+        // Summary: Generate a valid row, column to shoot at
+        // Paramater: row - output the row for the next shot
+        // Parameter: column - output the column for the next show
 
         protected abstract void GenerateCoords(ref int row, ref int column);
 
-        //Summary: The last shot had the following result. Child classes can use this to prepare for the next shot.
-        //Result: The result of the shot
-        //Row: the row shot
-        //Row: the row shot
-        //Col: the column shot
+        /*
+          Summary: The last shot had the following result. Child classes can use this
+                   to prepare for the next shot.
+        */
+        // Parameter: result - The result of the shot
+        // Parameter: row - the row shot
+        // Parameter: col - the column shot
 
         protected abstract void ProcessShot(int row, int col, AttackResult result);
 
-        //Summary: The AI takes its attacks until its go is over.
-        //Returns: The result of the last attack
-    
-    public override AttackResult Attack()
+        // Summary: The AI takes its attacks until its go is over.
+        // Returns: The result of the last attack
+
+        public override AttackResult Attack()
         {
             AttackResult result;
             int row = 0;
             int column = 0;
 
-            do
+            do //keep hitting until a miss
             {
                 Delay();
                 GenerateCoords(ref row, ref column);
@@ -115,7 +139,7 @@ namespace BattleShips
             return result;
         }
 
-        //Summary: Wait a short period to simulate the think time
+        // Summary: Wait a short period to simulate the think time
 
         private void Delay()
         {

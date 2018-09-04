@@ -1,47 +1,43 @@
-/// <summary>
-/// The ISeaGrid defines the read only interface of a Grid. This
-/// allows each player to see and attack their opponents grid.
-/// </summary>
-/// 
+/* 
+    Summary:
+    The ISeaGrid defines the read only interface of a Grid. This
+    allows each player to see and attack their opponents grid. 
+*/
 
-namespace BattleShips
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Security;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.VisualBasic;
+
+public interface ISeaGrid
 {
-    public interface ISeaGrid
-    {
+    int Width { get; }
 
-        int Width
-        {
-            get;
-        }
+    int Height { get; }
 
-        int Height
-        {
-            get;
-        }
+    // Summary: Indicates that the grid has changed.
 
-        /// <summary>
-        /// Indicates that the grid has changed.
-        /// </summary>
-        event EventHandler Changed;
+    event EventHandler Changed;
 
-        /// <summary>
-        /// Provides access to the given row/column
-        /// </summary>
-        /// <param name="row">the row to access</param>
-        /// <param name="column">the column to access</param>
-        /// <value>what the player can see at that location</value>
-        /// <returns>what the player can see at that location</returns>
-        TileView Item
-        {
-            get;
-        }
+    // Summary: Provides access to the given row/column
+    // Parameter: row - the row to access
+    // Parameter: column - the column to access
+    // Value: what the player can see at that location
+    // Returns: what the player can see at that location
 
-        /// <summary>
-        /// Mark the indicated tile as shot.
-        /// </summary>
-        /// <param name="row">the row of the tile</param>
-        /// <param name="col">the column of the tile</param>
-        /// <returns>the result of the attack</returns>
-        AttackResult HitTile(int row, int col);
-    }
+    TileView Item { get; }
+
+    // Summary: Mark the indicated tile as shot.
+    // Parameter: row - the row of the tile
+    // Pararameter: col - the column of the tile
+    // Returns: the result of the attack
+    AttackResult HitTile(int row, int col);
 }
