@@ -1,6 +1,10 @@
-using System;
-using System.Collections.Generic;
 
+using Microsoft.VisualBasic;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+//using System.Data;
+using System.Diagnostics;
 /*
  Summary:
  The BattleShipsGame controls a big part of the game. It will add the two players
@@ -8,59 +12,70 @@ using System.Collections.Generic;
  It also allows players to shoot and swap turns between player. It will also check if players
  are destroyed.
 */
-namespace BattleShips
+
+namespace Battleships
 {
     public class BattleShipsGame
     {
-
         /*
-         Summary:
-         The attack delegate type is used to send notifications of the end of an
-         attack by a player or the AI.
+        Summary:
+        The attack delegate type is used to send notifications of the end of an
+        attack by a player or the AI.
 
-         Parameter: sender - the game sending the notification
-         Parameter: result - the result of the attack
-         */
+        Parameter: sender - the game sending the notification
+        Parameter: result - the result of the attack
+        */
 
         public delegate void AttackCompletedHandler(object sender, AttackResult result);
 
+        /*
+        Summary:
+        The AttackCompleted event is raised when an attack has completed.
+        Remarks:
+        This is used by the UI to play sound effects etc.
+        */
+
         public event AttackCompletedHandler AttackCompleted;
 
+        private Player[] _players = new Player[3];
+
         private int _playerIndex = 0;
-
         /*
-         Summary:
-         The current player.
+        Summary:
+        The current player.
 
-         Value: The current player
-         returns: The current player
-         Remarks: This value will switch between the two players as they have their attacks
-         */
+        Value: The current player
+        Returns: The current player
+        Remarks: This value will switch between the two players as they have their attacks
+        */
 
         public Player Player
         {
-            get
-            {
-                return _players(_playerIndex);
-            }
+            get { return _players[_playerIndex]; }
         }
+
+        /*
+        Summary:
+        AddDeployedPlayer adds both players and will make sure
+        that the AI player deploys all ships
+        P: Player object (ADD)
+        */
 
         public void AddDeployedPlayer(Player p)
         {
-            if ((_players(0) == null))
+            if (_players[0] == null)
             {
-                _players(0) = p;
+                _players[0] = p;
             }
-            else if ((_players(1) == null))
+            else if (_players[1] == null)
             {
-                _players(1) = p;
-                this.CompleteDeployment();
+                _players[1] = p;
+                CompleteDeployment();
             }
             else
             {
                 throw new ApplicationException("You cannot add another player, the game already has two players.");
             }
-
         }
 
         /*
@@ -71,8 +86,8 @@ namespace BattleShips
 
         private void CompleteDeployment()
         {
-            _players(0).Enemy = new SeaGridAdapter(_players(1).PlayerGrid);
-            _players(1).Enemy = new SeaGridAdapter(_players(0).PlayerGrid);
+            _players[0].Enemy = new SeaGridAdapter(_players[1].PlayerGrid);
+            _players[1].Enemy = new SeaGridAdapter(_players[0].PlayerGrid);
         }
 
         /*
@@ -82,24 +97,29 @@ namespace BattleShips
 
          Parameter: row - the row fired upon>
          Parameter: col - the column fired upon
-         returns: The result of the attack
+         Returns: The result of the attack
          */
 
         public AttackResult Shoot(int row, int col)
         {
-            AttackResult newAttack;
-            int otherPlayer = ((_playerIndex + 1)
-                        % 2);
+            AttackResult newAttack = default(AttackResult);
+            int otherPlayer = (_playerIndex + 1) % 2;
+
             newAttack = Player.Shoot(row, col);
-            // Will exit the game when all players ships are destroyed
-            if (_players(otherPlayer).IsDestroyed)
+
+            //Will exit the game when all players ships are destroyed
+            if (_players[otherPlayer].IsDestroyed)
             {
                 newAttack = new AttackResult(ResultOfAttack.GameOver, newAttack.Ship, newAttack.Text, row, col);
             }
 
-            AttackCompleted(this, newAttack);
-            // change player if the last hit was a miss
-            if ((newAttack.Value == ResultOfAttack.Miss))
+            if (AttackCompleted != null)
+            {
+                AttackCompleted(this, newAttack);
+            }
+
+            //change player if the last hit was a miss
+            if (newAttack.Value == ResultOfAttack.Miss)
             {
                 _playerIndex = otherPlayer;
             }

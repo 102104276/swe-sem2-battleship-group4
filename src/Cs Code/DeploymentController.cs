@@ -1,13 +1,9 @@
 using SwinGameSDK;
-using System;
-using System.Collections.Generic;
-
 /*
 Summary: The DeploymentController controls the players actions
 during the deployment phase.
 */
-
-namespace BattleShips
+namespace Battleships
 {
     class DeploymentController
     {
@@ -38,7 +34,7 @@ namespace BattleShips
 
         private const int DIR_BUTTONS_WIDTH = 47;
 
-        private const int TEXT_OFFset = 5;
+        private const int TEXT_OFFSET = 5;
 
         private Direction _currentDirection = Direction.UpDown;
 
@@ -58,7 +54,7 @@ namespace BattleShips
         {
             if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE))
             {
-                GameController.AddNewState(GameState.ViewingGameMenu);
+                AddNewState(GameState.ViewingGameMenu);
             }
 
             if ((SwinGame.KeyTyped(KeyCode.vk_UP) || SwinGame.KeyTyped(KeyCode.vk_DOWN)))
@@ -71,7 +67,7 @@ namespace BattleShips
                 _currentDirection = Direction.LeftRight;
             }
 
-            if (SwinGame.KeyTyped(KeyCode.vk_r))
+            if (SwinGame.KeyTyped(KeyCode.vk_R))
             {
                 HumanPlayer.RandomizeDeployment();
             }
@@ -79,7 +75,7 @@ namespace BattleShips
             if (SwinGame.MouseClicked(MouseButton.LeftButton))
             {
                 ShipName selected;
-                selected = getShipMouseIsOver();
+                selected = DeploymentController.GetShipMouseIsOver();
                 if ((selected != ShipName.None))
                 {
                     _selectedShip = selected;
@@ -88,10 +84,11 @@ namespace BattleShips
                 {
                     DeploymentController.DoDeployClick();
                 }
+                
 
                 if ((HumanPlayer.ReadyToDeploy && UtilityFunctions.IsMouseInRectangle(PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT)))
                 {
-                    GameController.EndDeployment();
+                    EndDeployment();
                 }
                 else if (UtilityFunctions.IsMouseInRectangle(UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT))
                 {
@@ -105,7 +102,9 @@ namespace BattleShips
                 {
                     HumanPlayer.RandomizeDeployment();
                 }
+
             }
+
         }
 
         /*
@@ -114,7 +113,7 @@ namespace BattleShips
         the current ship if that is the case.
 
         Remarks:
-        if the click is in the grid it deploys to the selected location
+        If the click is in the grid it deploys to the selected location
         with the indicated direction
         */
 
@@ -125,8 +124,8 @@ namespace BattleShips
             // Calculate the row/col clicked
             int row;
             int col;
-            row = Convert.ToInt32(Math.Floor((mouse.Y / (UtilityFunctions.CELL_HEIGHT + UtilityFunctions.CELL_GAP))));
-            col = Convert.ToInt32(Math.Floor(((mouse.X - UtilityFunctions.FIELD_LEFT) / (UtilityFunctions.CELL_WIDTH + UtilityFunctions.CELL_GAP))));
+            row = Convert.ToInt32(Math.Floor((mouse.Y / (CELL_HEIGHT + CELL_GAP))));
+            col = Convert.ToInt32(Math.Floor(((mouse.X - FIELD_LEFT) / (CELL_WIDTH + CELL_GAP))));
             if (((row >= 0) && (row < HumanPlayer.PlayerGrid.Height)))
             {
                 if (((col >= 0) && (col < HumanPlayer.PlayerGrid.Width)))
@@ -138,9 +137,7 @@ namespace BattleShips
                     }
                     catch (Exception ex)
                     {
-                        
-
-                        Audio.PlaySoundEffect(GameResources.GameSound("Error"));
+                        Audio.PlaySoundEffect(GameSound("Error"));
                         Message = ex.Message;
                     }
                 }
@@ -155,7 +152,7 @@ namespace BattleShips
 
         public static void DrawDeployment()
         {
-            UtilityFunctions.DrawField(HumanPlayer.PlayerGrid, HumanPlayer, true);
+            DrawField(HumanPlayer.PlayerGrid, HumanPlayer, true);
             // Draw the Left/Right and Up/Down buttons
             if ((_currentDirection == Direction.LeftRight))
             {
@@ -171,7 +168,7 @@ namespace BattleShips
             }
 
             // DrawShips
-            foreach (ShipName sn in enum.getValues(typeof(ShipName))
+            foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
             {
                 int i;
                 i = (Int(sn) - 1);
@@ -181,12 +178,12 @@ namespace BattleShips
                     {
                         SwinGame.DrawBitmap(GameResources.GameImage("SelectedShip"), SHIPS_LEFT, (SHIPS_TOP + (i * SHIPS_HEIGHT)));
                         //     SwinGame.FillRectangle(Color.LightBlue, SHIPS_LEFT, SHIPS_TOP + i * SHIPS_HEIGHT, SHIPS_WIDTH, SHIPS_HEIGHT)
-                        // else
+                        // Else
                         //     SwinGame.FillRectangle(Color.Gray, SHIPS_LEFT, SHIPS_TOP + i * SHIPS_HEIGHT, SHIPS_WIDTH, SHIPS_HEIGHT)
                     }
 
                     // SwinGame.DrawRectangle(Color.Black, SHIPS_LEFT, SHIPS_TOP + i * SHIPS_HEIGHT, SHIPS_WIDTH, SHIPS_HEIGHT)
-                    // SwinGame.DrawText(sn.Tostring(), Color.Black, GameFont("Courier"), SHIPS_LEFT + TEXT_OFFset, SHIPS_TOP + i * SHIPS_HEIGHT)
+                    // SwinGame.DrawText(sn.ToString(), Color.Black, GameFont("Courier"), SHIPS_LEFT + TEXT_OFFSET, SHIPS_TOP + i * SHIPS_HEIGHT)
                 }
 
             }
@@ -195,7 +192,7 @@ namespace BattleShips
             {
                 SwinGame.DrawBitmap(GameResources.GameImage("PlayButton"), PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP);
                 // SwinGame.FillRectangle(Color.LightBlue, PLAY_BUTTON_LEFT, PLAY_BUTTON_TOP, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT)
-                // SwinGame.DrawText("PLAY", Color.Black, GameFont("Courier"), PLAY_BUTTON_LEFT + TEXT_OFFset, PLAY_BUTTON_TOP)
+                // SwinGame.DrawText("PLAY", Color.Black, GameFont("Courier"), PLAY_BUTTON_LEFT + TEXT_OFFSET, PLAY_BUTTON_TOP)
             }
 
             SwinGame.DrawBitmap(GameResources.GameImage("RandomButton"), RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP);
@@ -204,20 +201,19 @@ namespace BattleShips
 
         /*
         Summary
-        gets the ship that the mouse is currently over in the selection panel.
+        Gets the ship that the mouse is currently over in the selection panel.
 
-        returns:
+        Returns:
         The ship selected or none
         */
 
-        private static ShipName getShipMouseIsOver()
+        private static ShipName GetShipMouseIsOver()
         {
-            foreach (ShipName sn in enum.getValues(typeof(ShipName)))
+            foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
             {
                 int i;
-                i = (int(sn) - 1);
-    
-                if (IsMouseInRectangle(SHIPS_LEFT, (SHIPS_TOP + (i * SHIPS_HEIGHT)), SHIPS_WIDTH, SHIPS_HEIGHT))
+                i = (Int(sn) - 1);
+                if (UtilityFunctions.IsMouseInRectangle(SHIPS_LEFT, (SHIPS_TOP + (i * SHIPS_HEIGHT)), SHIPS_WIDTH, SHIPS_HEIGHT))
                 {
                     return sn;
                 }
@@ -226,5 +222,4 @@ namespace BattleShips
             return ShipName.None;
         }
     }
-
 }
