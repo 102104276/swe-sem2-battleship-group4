@@ -190,7 +190,8 @@ namespace BattleShips
 			SwinGame.Delay(200);
 
 			int i = 0;
-			for (i = 0; i <= ANI_CELL_COUNT - 1; i++) {
+			for (i = 0; i <= ANI_CELL_COUNT - 1; i++)
+			{
 				SwinGame.DrawBitmap(_background, 0, 0);
 				//SwinGame.DrawBitmapPart(_animation, (i / ANI_V_CELL_COUNT) * ANI_W, (i % ANI_V_CELL_COUNT) * ANI_H, ANI_W, ANI_H, ANI_X, ANI_Y);
 				SwinGame.Delay(20);
@@ -309,7 +310,8 @@ namespace BattleShips
 		// Frees all game fonts from memory
 		private static void FreeFonts()
 		{
-			foreach (Font obj in _fonts.Values) {
+			foreach (Font obj in _fonts.Values)
+			{
 				SwinGame.FreeFont(obj);
 			}
 		}
@@ -317,7 +319,8 @@ namespace BattleShips
 		// Frees all images from memory
 		private static void FreeImages()
 		{
-			foreach (Bitmap obj in _images.Values) {
+			foreach (Bitmap obj in _images.Values)
+			{
 				SwinGame.FreeBitmap(obj);
 			}
 		}
@@ -325,7 +328,8 @@ namespace BattleShips
 		// Frees all sounds from memory
 		private static void FreeSounds()
 		{		
-			foreach (SoundEffect obj in _sounds.Values) {
+			foreach (SoundEffect obj in _sounds.Values)
+			{
 				Audio.FreeSoundEffect(obj);
 			}
 		}
@@ -334,7 +338,8 @@ namespace BattleShips
 		private static void FreeMusic()
 		{
 
-			foreach (Music obj in _music.Values) {
+			foreach (Music obj in _music.Values)
+			{
 				Audio.FreeMusic(obj);
 			}
 		}
