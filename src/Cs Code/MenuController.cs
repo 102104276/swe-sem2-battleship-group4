@@ -19,19 +19,23 @@ namespace BattleShips
 
 		// The menu structure for the game.
 		// These are the text captions for the menu items.
-		private static readonly string[][] _menuStructure = {
-			new string[] {
+		private static readonly string[][] _menuStructure =
+		{
+			new string[]
+			{
 				"PLAY",
 				"SETUP",
 				"SCORES",
 				"QUIT"
 			},
-			new string[] {
+			new string[]
+			{
 				"RETURN",
 				"SURRENDER",
 				"QUIT"
 			},
-			new string[] {
+			new string[]
+			{
 				"EASY",
 				"MEDIUM",
 				"HARD"
@@ -79,7 +83,8 @@ namespace BattleShips
 			bool handled = false;
 			handled = HandleMenuInput(SETUP_MENU, 1, 1);
 
-			if (!handled) {
+			if (!handled)
+			{
 				HandleMenuInput(MAIN_MENU, 0, 0);
 			}
 		}
@@ -98,24 +103,29 @@ namespace BattleShips
 		// Returns: false if a clicked missed the buttons. This can be used to check prior menus.
 		private static bool HandleMenuInput(int menu, int level, int xOffset)
 		{
-			//if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE)) {
-			if(SwinGame.KeyTyped(KeyCode.EscapeKey)){
+			//if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE)){
+			if(SwinGame.KeyTyped(KeyCode.EscapeKey))
+			{
 				GameController.EndCurrentState();
 				return true;
 			}
 
-			if (SwinGame.MouseClicked(MouseButton.LeftButton)) {
+			if (SwinGame.MouseClicked(MouseButton.LeftButton))
+			{
 				int i = 0;
-				for (i = 0; i <= _menuStructure[menu].Length - 1; i++) {
-					//IsMouseOver the i'th button of the menu
-					if (IsMouseOverMenu(i, level, xOffset)) {
+				for (i = 0; i <= _menuStructure[menu].Length - 1; i++)
+				{
+					// IsMouseOver the i'th button of the menu
+					if (IsMouseOverMenu(i, level, xOffset))
+					{
 						PerformMenuAction(menu, i);
 						return true;
 					}
 				}
 
-				if (level > 0) {
-					//none clicked - so end this sub menu
+				if (level > 0)
+				{
+					// none clicked - so end this sub menu
 					GameController.EndCurrentState();
 				}
 			}
@@ -172,7 +182,8 @@ namespace BattleShips
 
 			btnTop = MENU_TOP - (MENU_GAP + BUTTON_HEIGHT) * level;
 			int i = 0;
-			for (i = 0; i <= _menuStructure[menu].Length - 1; i++) {
+			for (i = 0; i <= _menuStructure[menu].Length - 1; i++)
+			{
 				int btnLeft = 0;
 				btnLeft = MENU_LEFT + BUTTON_SEP * (i + xOffset);
 				//SwinGame.FillRectangle(Color.White, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT)
@@ -184,7 +195,8 @@ namespace BattleShips
 				SwinGame.DrawText (_menuStructure [menu] [i], MENU_COLOR, Color.Black, GameResources.GameFont ("Menu"), FontAlignment.AlignCenter, drawRect);
 				//SwinGame.DrawTextLines(_menuStructure[menu][i], MENU_COLOR, Color.Black, GameResources.GameFont("Menu"), FontAlignment.AlignCenter, btnLeft + TEXT_OFFSET, btnTop + TEXT_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT);
 
-				if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset)) {
+				if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset))
+				{
 					SwinGame.DrawRectangle(HIGHLIGHT_COLOR, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
 				}
 			}
@@ -233,7 +245,8 @@ namespace BattleShips
 		// Parameter: button - The button pressed
 		private static void PerformMainMenuAction(int button)
 		{
-			switch (button) {
+			switch (button)
+			{
 				case MAIN_MENU_PLAY_BUTTON:
 					GameController.StartGame();
 					break;
@@ -253,7 +266,8 @@ namespace BattleShips
 		// Parameter: button - The button pressed
 		private static void PerformSetupMenuAction(int button)
 		{
-			switch (button) {
+			switch (button)
+			{
 				case SETUP_MENU_EASY_BUTTON:
 					GameController.SetDifficulty(AIOption.Easy);
 					break;
@@ -272,15 +286,16 @@ namespace BattleShips
 		// Parameter: button - The button pressed
 		private static void PerformGameMenuAction(int button)
 		{
-			switch (button) {
+			switch (button)
+			{
 				case GAME_MENU_RETURN_BUTTON:
 					GameController.EndCurrentState();
 					break;
 				case GAME_MENU_SURRENDER_BUTTON:
 					GameController.EndCurrentState();
-					//end game menu
+					// end game menu
 					GameController.EndCurrentState();
-					//end game
+					// end game
 					break;
 				case GAME_MENU_QUIT_BUTTON:
 					GameController.AddNewState(GameState.Quitting);
