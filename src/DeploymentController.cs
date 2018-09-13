@@ -31,11 +31,6 @@ namespace BattleShips
 
         private const int DIR_BUTTONS_WIDTH = 47;
 
-        private const int CLEAR_BUTTON_HEIGHT = 46;
-        private const int CLEAR_BUTTON_WIDTH = 56;
-        private const int CLEAR_BUTTON_LEFT = 620;
-        
-
         private const int TEXT_OFFSET = 5;
         private static Direction _currentDirection = Direction.UpDown;
 
@@ -56,13 +51,13 @@ namespace BattleShips
             }
 
             //Moves ships direction to vertical when down or up key pressed
-            if (SwinGame.KeyTyped(KeyCode.vk_UP) || SwinGame.KeyTyped(KeyCode.vk_DOWN))
+            if (SwinGame.KeyTyped(KeyCode.vk_UP) | SwinGame.KeyTyped(KeyCode.vk_DOWN))
             {
                 _currentDirection = Direction.UpDown;
             }
 
             //Moves ships direction to horizontal when left or right key pressed
-            if (SwinGame.KeyTyped(KeyCode.vk_LEFT) || SwinGame.KeyTyped(KeyCode.vk_RIGHT))
+            if (SwinGame.KeyTyped(KeyCode.vk_LEFT) | SwinGame.KeyTyped(KeyCode.vk_RIGHT))
             {
                 _currentDirection = Direction.LeftRight;
             }
@@ -103,11 +98,6 @@ namespace BattleShips
                 else if (UtilityFunctions.IsMouseInRectangle(RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP, RANDOM_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
                 {
                     GameController.HumanPlayer.RandomizeDeployment();
-                }
-                else if (UtilityFunctions.IsMouseInRectangle(CLEAR_BUTTON_LEFT, TOP_BUTTONS_TOP, CLEAR_BUTTON_WIDTH, CLEAR_BUTTON_HEIGHT))
-                {
-                    //clears board
-                    GameController.HumanPlayer.PlayerGrid.ClearBoard();
                 }
             }
         }
@@ -170,11 +160,6 @@ namespace BattleShips
                 //SwinGame.DrawText("U/D", Color.White, GameFont("Menu"), UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP)
                 //SwinGame.DrawText("L/R", Color.Gray, GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP)
             }
-
-            //displays current game difficulty
-            SwinGame.DrawText("Difficulty: " + GameController.AIDifficulty, Color.White, 530, 570);
-
-            SwinGame.DrawBitmap(GameResources.GameImage("Clear"), 620, TOP_BUTTONS_TOP);
 
             //DrawShips
             foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))

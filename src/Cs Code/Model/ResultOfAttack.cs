@@ -2,7 +2,7 @@
  Summary:
  The result of an attack.
 */
-namespace Battleships
+namespace BattleShips
 {
     public enum ResultOfAttack
     {

@@ -49,15 +49,6 @@ namespace BattleShips
             get { return _human; }
         }
 
-        public static string AIDifficulty
-        {
-            get
-            {
-                return _aiSetting.ToString();
-
-            }
-        }
-
         /// <summary>
         /// Returns the computer player.
         /// </summary>
