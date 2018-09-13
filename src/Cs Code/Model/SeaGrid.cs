@@ -15,7 +15,7 @@ using System.Diagnostics;
  mask the position of the ships.
  */
 
-namespace Battleships
+namespace BattleShips
 {
     public class SeaGrid : ISeaGrid
     {

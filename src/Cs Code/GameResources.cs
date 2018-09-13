@@ -161,17 +161,17 @@ namespace BattleShips
 	    // Shows the loading screen.
 		private static void ShowLoadingScreen()
 		{
-			_Background = SwinGame.LoadBitmap("SplashBack.png");
+			_background = SwinGame.LoadBitmap("SplashBack.png");
 			SwinGame.DrawBitmap(_background, 0, 0);
 			SwinGame.RefreshScreen();
 			SwinGame.ProcessEvents();
 
-			_Animation = SwinGame.LoadBitmap("SwinGameAni.jpg");
-			_LoadingFont = SwinGame.LoadFont("arial.ttf", 12);
-			_StartSound = Audio.LoadSoundEffect("SwinGameStart.ogg");
+			_animation = SwinGame.LoadBitmap("SwinGameAni.jpg");
+			_loadingFont = SwinGame.LoadFont("arial.ttf", 12);
+			_startSound = Audio.LoadSoundEffect("SwinGameStart.ogg");
 
-			_LoaderFull = SwinGame.LoadBitmap("loader_full.png");
-			_LoaderEmpty = SwinGame.LoadBitmap("loader_empty.png");
+			_loaderFull = SwinGame.LoadBitmap("loader_full.png");
+            _loaderEmpty = SwinGame.LoadBitmap("loader_empty.png");
 
 			PlaySwinGameIntro();
 		}
@@ -232,7 +232,7 @@ namespace BattleShips
 			toDraw.Width = TW;
 	        toDraw.Height = TH;
 
-	        SwinGame.DrawText (message, Color.White, Color.Transparent,_loadingFont,FontAlignment.AlignCenter,toDraw);
+	        SwinGame.DrawTextLines(message, Color.White, Color.Transparent,_loadingFont,FontAlignment.AlignCenter,toDraw);
 			//SwinGame.DrawTextLines(message, Color.White, Color.Transparent, _loadingFont, FontAlignment.AlignCenter, TX, TY, TW, TH);
 
 			SwinGame.RefreshScreen();

@@ -13,7 +13,7 @@ using System.Diagnostics;
  are destroyed.
 */
 
-namespace Battleships
+namespace BattleShips
 {
     public class BattleShipsGame
     {

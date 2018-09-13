@@ -11,7 +11,7 @@ using System.Diagnostics;
  shot before
  */
 
-namespace Battleships
+namespace BattleShips
 {
     public class Tile
     {

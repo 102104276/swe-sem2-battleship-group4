@@ -12,7 +12,7 @@ using SwinGameSDK;
  of a game.
 */
 
-namespace Battleships
+namespace BattleShips
 {
 
     static class EndingGameController

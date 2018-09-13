@@ -104,7 +104,7 @@ namespace BattleShips
 		private static bool HandleMenuInput(int menu, int level, int xOffset)
 		{
 			//if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE)){
-			if(SwinGame.KeyTyped(KeyCode.EscapeKey))
+			if(SwinGame.KeyTyped(KeyCode.vk_ESCAPE))
 			{
 				GameController.EndCurrentState();
 				return true;
@@ -192,7 +192,7 @@ namespace BattleShips
 				drawRect.Y = btnTop + TEXT_OFFSET;
 				drawRect.Width = BUTTON_WIDTH;
 				drawRect.Height = BUTTON_HEIGHT;
-				SwinGame.DrawText (_menuStructure [menu] [i], MENU_COLOR, Color.Black, GameResources.GameFont ("Menu"), FontAlignment.AlignCenter, drawRect);
+				SwinGame.DrawTextLines(_menuStructure [menu] [i], MENU_COLOR, Color.Black, GameResources.GameFont ("Menu"), FontAlignment.AlignCenter, drawRect);
 				//SwinGame.DrawTextLines(_menuStructure[menu][i], MENU_COLOR, Color.Black, GameResources.GameFont("Menu"), FontAlignment.AlignCenter, btnLeft + TEXT_OFFSET, btnTop + TEXT_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT);
 
 				if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset))
