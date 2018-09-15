@@ -31,16 +31,16 @@ namespace BattleShips
 
         private const int DIR_BUTTONS_WIDTH = 47;
 
-        private const int CLEAR_BUTTON_HEIGHT = 46;
-        private const int CLEAR_BUTTON_WIDTH = 56;
-        private const int CLEAR_BUTTON_LEFT = 620;
-        
-
         private const int TEXT_OFFSET = 5;
         private static Direction _currentDirection = Direction.UpDown;
 
         private static ShipName _selectedShip = ShipName.Tug;
 
+
+        private const int CLEAR_BUTTON_HEIGHT = 46;
+        private const int CLEAR_BUTTON_WIDTH = 56;
+        private const int CLEAR_BUTTON_LEFT = 620;
+        
         // Summary: Handles user input for the Deployment phase of the game.
         /* 
           Remarks: Involves selecting the ships, deloying ships, changing the direction
@@ -56,12 +56,14 @@ namespace BattleShips
             }
 
             //Moves ships direction to vertical when down or up key pressed
+
             if (SwinGame.KeyTyped(KeyCode.vk_UP) || SwinGame.KeyTyped(KeyCode.vk_DOWN))
             {
                 _currentDirection = Direction.UpDown;
             }
 
             //Moves ships direction to horizontal when left or right key pressed
+
             if (SwinGame.KeyTyped(KeyCode.vk_LEFT) || SwinGame.KeyTyped(KeyCode.vk_RIGHT))
             {
                 _currentDirection = Direction.LeftRight;
@@ -108,6 +110,7 @@ namespace BattleShips
                 {
                     //clears board
                     GameController.HumanPlayer.PlayerGrid.ClearBoard();
+
                 }
             }
         }
@@ -116,8 +119,7 @@ namespace BattleShips
           Summary:
           The user has clicked somewhere on the screen, check if its is a deployment and deploy
           the current ship if that is the case.
-        */
-        /*
+
           Remarks:
           If the click is in the grid it deploys to the selected location
           with the indicated direction
