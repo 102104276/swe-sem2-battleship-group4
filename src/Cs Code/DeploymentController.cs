@@ -147,7 +147,7 @@ namespace BattleShips
                     }
                     catch (Exception ex)
                     {
-                        Audio.PlaySoundEffect(GameResources.GameSound("Error"));
+                        UtilityFunctions.PlaySFX("Error");
                         UtilityFunctions.Message = ex.Message;
                     }
                 }

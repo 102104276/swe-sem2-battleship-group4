@@ -8,12 +8,12 @@ using System.Diagnostics;
 using System.IO;
 using SwinGameSDK;
 
-/// <summary>
-/// Controls displaying and collecting high score data.
-/// </summary>
-/// <remarks>
-/// Data is saved to a file.
-/// </remarks>
+// Summary: 
+// Controls displaying and collecting high score data.
+// 
+// Remarks: 
+// Data is saved to a file.
+// 
 namespace BattleShips
 {
     static class HighScoreController
@@ -21,20 +21,20 @@ namespace BattleShips
         private const int NAME_WIDTH = 3;
 
         private const int SCORES_LEFT = 490;
-        /// <summary>
-        /// The score structure is used to keep the name and
-        /// score of the top players together.
-        /// </summary>
+        // Summary: 
+        // The score structure is used to keep the name and
+        // score of the top players together.
+        // 
         private struct Score : IComparable
         {
             public string Name;
 
             public int Value;
-            /// <summary>
-            /// Allows scores to be compared to facilitate sorting
-            /// </summary>
-            /// <param name="obj">the object to compare to</param>
-            /// <returns>a value that indicates the sort order</returns>
+            // Summary: 
+            // Allows scores to be compared to facilitate sorting
+            // 
+            // obj: the object to compare to
+            // <returns>a value that indicates the sort order</returns>
             public int CompareTo(object obj)
             {
                 if (obj is Score)
@@ -52,16 +52,16 @@ namespace BattleShips
 
 
         private static List<Score> _Scores = new List<Score>();
-        /// <summary>
-        /// Loads the scores from the highscores text file.
-        /// </summary>
-        /// <remarks>
-        /// The format is
-        /// # of scores
-        /// NNNSSS
-        /// 
-        /// Where NNN is the name and SSS is the score
-        /// </remarks>
+        // Summary: 
+        // Loads the scores from the highscores text file.
+        // 
+        // Remarks: 
+        // The format is
+        // # of scores
+        // NNNSSS
+        // 
+        // Where NNN is the name and SSS is the score
+        // 
         private static void LoadScores()
         {
             string filename = null;
@@ -93,16 +93,16 @@ namespace BattleShips
             input.Close();
         }
 
-        /// <summary>
-        /// Saves the scores back to the highscores text file.
-        /// </summary>
-        /// <remarks>
-        /// The format is
-        /// # of scores
-        /// NNNSSS
-        /// 
-        /// Where NNN is the name and SSS is the score
-        /// </remarks>
+        // Summary: 
+        // Saves the scores back to the highscores text file.
+        // 
+        // Remarks: 
+        // The format is
+        // # of scores
+        // NNNSSS
+        // 
+        // Where NNN is the name and SSS is the score
+        // 
         private static void SaveScores()
         {
             string filename = null;
@@ -121,9 +121,9 @@ namespace BattleShips
             output.Close();
         }
 
-        /// <summary>
-        /// Draws the high scores to the screen.
-        /// </summary>
+        // Summary: 
+        // Draws the high scores to the screen.
+        // 
         public static void DrawHighScores()
         {
             const int SCORES_HEADING = 40;
@@ -155,12 +155,12 @@ namespace BattleShips
             }
         }
 
-        /// <summary>
-        /// Handles the user input during the top score screen.
-        /// </summary>
-        /// <remarks>
-        /// Updated the Keycodes
-        /// </remarks>
+        // Summary: 
+        // Handles the user input during the top score screen.
+        // 
+        // Remarks: 
+        // Updated the Keycodes
+        // 
         public static void HandleHighScoreInput()
         {
             if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.vk_ESCAPE) || SwinGame.KeyTyped(KeyCode.vk_RETURN))
@@ -169,13 +169,13 @@ namespace BattleShips
             }
         }
 
-        /// <summary>
-        /// Read the user's name for their highscore.
-        /// </summary>
-        /// <param name="value">the player's score.</param>
-        /// <remarks>
-        /// This verifies if the score is a highscore.
-        /// </remarks>
+        // Summary: 
+        // Read the user's name for their highscore.
+        // 
+        // value: the player's score.
+        // Remarks: 
+        // This verifies if the score is a highscore.
+        // 
         public static void ReadHighScore(int value)
         {
             const int ENTRY_TOP = 500;

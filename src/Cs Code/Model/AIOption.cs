@@ -5,23 +5,22 @@ using System.Collections;
 using System.Collections.Generic;
 //using System.Data;
 using System.Diagnostics;
-/// <summary>
-/// The different AI levels.
-/// </summary>
-public enum AIOption
+//Summary:
+//The different AI levels.
+namespace BattleShips
 {
-	/// <summary>
-	/// Easy, total random shooting
-	/// </summary>
-	Easy,
+    public enum AIOption
+    {
+        //Summary:
+        //Easy, total random shooting
+        Easy,
 
-	/// <summary>
-	/// Medium, marks squares around hits
-	/// </summary>
-	Medium,
+        //Summary
+        //Medium, marks squares around hits
+        Medium,
 
-	/// <summary>
-	/// As medium, but removes shots once it misses
-	/// </summary>
-	Hard
+        //Summary:
+        //As medium, but removes shots once it misses
+        Hard
+    }
 }

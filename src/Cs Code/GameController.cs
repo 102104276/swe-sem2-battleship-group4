@@ -173,7 +173,7 @@ namespace BattleShips
                 UtilityFunctions.AddExplosion(row, column);
             }
 
-            Audio.PlaySoundEffect(GameResources.GameSound("Hit"));
+            UtilityFunctions.PlaySFX("Hit");
 
             UtilityFunctions.DrawAnimationSequence();
         }
@@ -190,7 +190,7 @@ namespace BattleShips
                 UtilityFunctions.AddSplash(row, column);
             }
 
-            Audio.PlaySoundEffect(GameResources.GameSound("Miss"));
+            UtilityFunctions.PlaySFX("Miss");
 
             UtilityFunctions.DrawAnimationSequence();
         }
@@ -224,12 +224,12 @@ namespace BattleShips
             {
                 case ResultOfAttack.Destroyed:
                     PlayHitSequence(result.Row, result.Column, isHuman);
-                    Audio.PlaySoundEffect(GameResources.GameSound("Sink"));
+                    UtilityFunctions.PlaySFX("Sink");
 
                     break;
                 case ResultOfAttack.GameOver:
                     PlayHitSequence(result.Row, result.Column, isHuman);
-                    Audio.PlaySoundEffect(GameResources.GameSound("Sink"));
+                    UtilityFunctions.PlaySFX("Sink");
 
                     while (Audio.SoundEffectPlaying(GameResources.GameSound("Sink")))
                     {
@@ -239,11 +239,11 @@ namespace BattleShips
 
                     if (HumanPlayer.IsDestroyed)
                     {
-                        Audio.PlaySoundEffect(GameResources.GameSound("Lose"));
+                        UtilityFunctions.PlaySFX("Lose");
                     }
                     else
                     {
-                        Audio.PlaySoundEffect(GameResources.GameSound("Winner"));
+                        UtilityFunctions.PlaySFX("Winner");
                     }
 
                     break;
@@ -254,7 +254,7 @@ namespace BattleShips
                     PlayMissSequence(result.Row, result.Column, isHuman);
                     break;
                 case ResultOfAttack.ShotAlready:
-                    Audio.PlaySoundEffect(GameResources.GameSound("Error"));
+                    UtilityFunctions.PlaySFX("Error");
                     break;
             }
         }

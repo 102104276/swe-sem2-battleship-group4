@@ -19,6 +19,7 @@ namespace BattleShips
 
 		// The menu structure for the game.
 		// These are the text captions for the menu items.
+
 		private static readonly string[][] _menuStructure =
 		{
 			new string[]
@@ -28,13 +29,45 @@ namespace BattleShips
 				"SCORES",
 				"QUIT"
 			},
+
+
 			new string[]
 			{
 				"RETURN",
 				"SURRENDER",
-				"QUIT"
+				"QUIT",
+                "MUTE MUSIC",
+                "MUTE SFX"
 			},
-			new string[]
+
+            new string[]
+            {
+                "RETURN",
+                "SURRENDER",
+                "QUIT",
+                "RESUME MUSIC",
+                "MUTE SFX"
+            },
+
+            new string[]
+            {
+                "RETURN",
+                "SURRENDER",
+                "QUIT",
+                "MUTE MUSIC",
+                "PLAY SFX"
+            },
+
+            new string[]
+            {
+                "RETURN",
+                "SURRENDER",
+                "QUIT",
+                "RESUME MUSIC",
+                "PLAY SFX"
+            },
+
+            new string[]
 			{
 				"EASY",
 				"MEDIUM",
@@ -51,9 +84,12 @@ namespace BattleShips
 
 		private const int TEXT_OFFSET = 0;
 		private const int MAIN_MENU = 0;
-		private const int GAME_MENU = 1;
+		private const int GAME_MENU_DEFAULT = 1;
+        private const int GAME_MENU_NO_MUSIC_SFX = 2;
+        private const int GAME_MENU_MUSIC_NO_SFX = 3;
+        private const int GAME_MENU_NO_MUSIC_NO_SFX = 4;
 
-		private const int SETUP_MENU = 2;
+        private const int SETUP_MENU = 5;
 		private const int MAIN_MENU_PLAY_BUTTON = 0;
 		private const int MAIN_MENU_SETUP_BUTTON = 1;
 		private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
@@ -68,7 +104,10 @@ namespace BattleShips
 		private const int GAME_MENU_SURRENDER_BUTTON = 1;
 
 		private const int GAME_MENU_QUIT_BUTTON = 2;
-		private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
+        private const int GAME_MENU_MUTE_MUSIC_ACTION = 3;
+        private const int GAME_MENU_MUTE_SFX_ACTION = 4;
+
+        private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
 
 		private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
 		// Handles the processing of user input when the main menu is showing
@@ -93,7 +132,7 @@ namespace BattleShips
 		// Player can return to the game, surrender, or quit entirely
 		public static void HandleGameMenuInput()
 		{
-			HandleMenuInput(GAME_MENU, 0, 0);
+			HandleMenuInput(GAME_MENU_DEFAULT, 0, 0);
 		}
 
 		// Handles input for the specified menu.
@@ -147,9 +186,29 @@ namespace BattleShips
 		{
 			// Clears the Screen to Black
 			//SwinGame.DrawText("Paused", Color.White, GameFont("ArialLarge"), 50, 50)
-
-			DrawButtons(GAME_MENU);
-		}
+            if (Audio.MusicPlaying())
+            {
+                if (UtilityFunctions.SFX_ACTIVE)
+                {
+                    DrawButtons(GAME_MENU_DEFAULT);
+                }
+                else
+                {
+                    DrawButtons(GAME_MENU_MUSIC_NO_SFX);
+                }
+            }
+            else
+            {
+                if (UtilityFunctions.SFX_ACTIVE)
+                {
+                    DrawButtons(GAME_MENU_NO_MUSIC_SFX);
+                }
+                else
+                {
+                    DrawButtons(GAME_MENU_NO_MUSIC_NO_SFX);
+                }
+            }
+        }
 
 		// Draws the settings menu to the screen.
 		// Also shows the main menu
@@ -235,10 +294,19 @@ namespace BattleShips
 				case SETUP_MENU:
 					PerformSetupMenuAction(button);
 					break;
-				case GAME_MENU:
+				case GAME_MENU_DEFAULT:
 					PerformGameMenuAction(button);
 					break;
-			}
+                case GAME_MENU_NO_MUSIC_SFX:
+                    PerformGameMenuAction(button);
+                    break;
+                case GAME_MENU_MUSIC_NO_SFX:
+                    PerformGameMenuAction(button);
+                    break;
+                case GAME_MENU_NO_MUSIC_NO_SFX:
+                    PerformGameMenuAction(button);
+                    break;
+            }
 		}
 		
 		// The main menu was clicked, perform the button's action.
@@ -291,15 +359,41 @@ namespace BattleShips
 				case GAME_MENU_RETURN_BUTTON:
 					GameController.EndCurrentState();
 					break;
+
 				case GAME_MENU_SURRENDER_BUTTON:
 					GameController.EndCurrentState();
 					// end game menu
 					GameController.EndCurrentState();
 					// end game
 					break;
+
 				case GAME_MENU_QUIT_BUTTON:
 					GameController.AddNewState(GameState.Quitting);
 					break;
+
+                case GAME_MENU_MUTE_MUSIC_ACTION:
+                    if (Audio.MusicPlaying())
+                    {
+                        UtilityFunctions.StopMusic();                   
+                    }
+                    else
+                    {
+                        UtilityFunctions.PlayMuisc();
+                    }
+                    break;
+
+                case GAME_MENU_MUTE_SFX_ACTION:
+                    if (UtilityFunctions.SFX_ACTIVE)
+                    {
+                        UtilityFunctions.RemoveSFX();
+                    }
+                    else
+                    {
+                        UtilityFunctions.LoadSFX();
+                    }
+
+
+                    break;
 			}
 		}
 	}

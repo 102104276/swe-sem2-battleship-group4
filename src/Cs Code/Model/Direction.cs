@@ -5,25 +5,15 @@ using System.Collections;
 using System.Collections.Generic;
 //using System.Data;
 using System.Diagnostics;
-/// <summary>
-/// The direction the ship can be oriented.
-/// </summary>
+//Summary:
+//The direction the ship can be oriented.
 public enum Direction
 {
-	/// <summary>
-	/// The ship is oriented left/right
-	/// </summary>
+	//Summary:
+	//The ship is oriented left/right
 	LeftRight,
 
-	/// <summary>
-	/// The ship is oriented up/down
-	/// </summary>
+	//Summary:
+	//The ship is oriented up/down
 	UpDown
 }
-
-//=======================================================
-//Service provided by Telerik (www.telerik.com)
-//Conversion powered by NRefactory.
-//Twitter: @telerik
-//Facebook: facebook.com/telerik
-//=======================================================

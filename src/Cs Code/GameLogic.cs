@@ -23,8 +23,8 @@ namespace BattleShips
             //Load Resources
             GameResources.LoadResources();
 
-            //Plays Background Music
             SwinGame.PlayMusic(GameResources.GameMusic("Background"));
+            
 
             //Game Loop
             do
@@ -33,7 +33,7 @@ namespace BattleShips
                 GameController.DrawScreen();
             } while (!(SwinGame.WindowCloseRequested() == true | GameController.CurrentState == GameState.Quitting));
 
-            SwinGame.StopMusic();
+            UtilityFunctions.StopMusic();
 
             //Free Resources and Close Audio, to end the program.
             try

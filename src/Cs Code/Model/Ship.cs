@@ -4,14 +4,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-/// <summary>
-/// A Ship has all the details about itself. For example the shipname,
-/// size, number of hits taken and the location. Its able to add tiles,
-/// remove, hits taken and if its deployed and destroyed.
-/// </summary>
-/// <remarks>
-/// Deployment information is supplied to allow ships to be drawn.
-/// </remarks>
+// Summary
+// A Ship has all the details about itself. For example the shipname,
+// size, number of hits taken and the location. Its able to add tiles,
+// remove, hits taken and if its deployed and destroyed.
+// 
+// Remarks:
+// Deployment information is supplied to allow ships to be drawn.
 namespace BattleShips
 {
     public class Ship
@@ -24,11 +23,11 @@ namespace BattleShips
         private int _col;
 
         private Direction _direction;
-        /// <summary>
-        /// The type of ship
-        /// </summary>
-        /// <value>The type of ship</value>
-        /// <returns>The type of ship</returns>
+        // Summary
+        // The type of ship
+        // 
+        // Value: The type of ship
+        // Returns: The type of ship
         public string Name
         {
             get
@@ -42,60 +41,60 @@ namespace BattleShips
             }
         }
 
-        /// <summary>
-        /// The number of cells that this ship occupies.
-        /// </summary>
-        /// <value>The number of hits the ship can take</value>
-        /// <returns>The number of hits the ship can take</returns>
+        // Summary
+        // The number of cells that this ship occupies.
+        // 
+        // Value: The number of hits the ship can take
+        // Returns: The number of hits the ship can take
         public int Size
         {
             get { return _sizeOfShip; }
         }
 
-        /// <summary>
-        /// The number of hits that the ship has taken.
-        /// </summary>
-        /// <value>The number of hits the ship has taken.</value>
-        /// <returns>The number of hits the ship has taken</returns>
-        /// <remarks>When this equals Size the ship is sunk</remarks>
+        // Summary
+        // The number of hits that the ship has taken.
+        // 
+        // Value: The number of hits the ship has taken.
+        // Returns: The number of hits the ship has taken
+        // Remarks: When this equals Size the ship is sunk
         public int Hits
         {
             get { return _hitsTaken; }
         }
 
-        /// <summary>
-        /// The row location of the ship
-        /// </summary>
-        /// <value>The topmost location of the ship</value>
-        /// <returns>the row of the ship</returns>
+        // Summary
+        // The row location of the ship
+        // 
+        // Value: The topmost location of the ship
+        // Returns: the row of the ship
         public int Row
         {
             get { return _row; }
         }
 
-        /// <summary>
-        /// The column location of the ship
-        /// </summary>
-        /// <value>The leftmost location of the ship</value>
-        /// <returns>the column of the ship</returns>
+        // Summary
+        // The column location of the ship
+        // 
+        // Value: The leftmost location of the ship
+        // Returns: the column of the ship
         public int Column
         {
             get { return _col; }
         }
 
-        /// <summary>
-        /// The direction of the ship
-        /// </summary>
-        /// <value>The direction of the ship, UpDown or LeftRight </value>
-        /// <returns>the direction of the ship</returns>
+        // Summary
+        // The direction of the ship
+        // 
+        // Value: The direction of the ship, UpDown or LeftRight 
+        // Returns: the direction of the ship
         public Direction Direction
         {
             get { return _direction; }
         }
 
-        /// <summary>
-        /// The constructor, prepares name, tiles and size
-        /// </summary>
+        // Summary
+        // The constructor, prepares name, tiles and size
+        // 
         public Ship(ShipName ship)
         {
             _shipName = ship;
@@ -105,18 +104,18 @@ namespace BattleShips
             _sizeOfShip = (int)_shipName;
         }
 
-        /// <summary>
-        /// Add tile adds the ship tile
-        /// </summary>
-        /// <param name="tile">one of the tiles the ship is on</param>
+        // Summary
+        // Add tile adds the ship tile
+        // 
+        // <param name="tile">one of the tiles the ship is on</param>
         public void AddTile(Tile tile)
         {
             _tiles.Add(tile);
         }
 
-        /// <summary>
-        /// Remove clears the tile back to a sea tile
-        /// </summary>
+        // Summary
+        // Remove clears the tile back to a sea tile
+        // 
         public void Remove()
         {
             foreach (Tile tile in _tiles)
@@ -131,29 +130,29 @@ namespace BattleShips
             _hitsTaken = _hitsTaken + 1;
         }
 
-        /// <summary>
-        /// IsDeployed returns if the ships is deployed, if its deplyed it has more than
-        /// 0 tiles
-        /// </summary>
+        // Summary
+        // IsDeployed returns if the ships is deployed, if its deplyed it has more than
+        // 0 tiles
+        // 
         public bool IsDeployed
         {
             get { return _tiles.Count > 0; }
         }
 
-        /// <summary>
-        /// Checks if the ship is destroyed by comparing checking if it has been hit a number of times equal to its size
-        /// </summary>
+        // Summary
+        // Checks if the ship is destroyed by comparing checking if it has been hit a number of times equal to its size
+        // 
         public bool IsDestroyed
         {
             get { return Hits == Size; }
         }
 
-        /// <summary>
-        /// Record that the ship is now deployed.
-        /// </summary>
-        /// <param name="direction"></param>
-        /// <param name="row"></param>
-        /// <param name="col"></param>
+        // Summary
+        // Record that the ship is now deployed.
+        // 
+        // <param name="direction"></param>
+        // <param name="row"></param>
+        // <param name="col"></param>
         internal void Deployed(Direction direction, int row, int col)
         {
             _row = row;
@@ -161,11 +160,4 @@ namespace BattleShips
             _direction = direction;
         }
     }
-
-    //=======================================================
-    //Service provided by Telerik (www.telerik.com)
-    //Conversion powered by NRefactory.
-    //Twitter: @telerik
-    //Facebook: facebook.com/telerik
-    //=======================================================
 }

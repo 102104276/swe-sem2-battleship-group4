@@ -47,6 +47,17 @@ namespace BattleShips
 
         public const int FRAMES_PER_CELL = 8;
 
+        private static bool sfx_active = true;
+
+
+        public static bool SFX_ACTIVE
+        {
+            get
+            {
+                return sfx_active;
+            }
+        }
+
         /*
         Summary: Determines if the mouse is in a given rectangle.
         Parameter: X - the x location to check
@@ -348,5 +359,34 @@ namespace BattleShips
                 GameController.DrawScreen();
             }
         }
+
+        public static void PlayMuisc()
+        {
+            SwinGame.PlayMusic(GameResources.GameMusic("Background"));
+        }
+
+        public static void StopMusic()
+        {
+            Audio.StopMusic();
+        }
+
+        public static void RemoveSFX()
+        {
+            sfx_active = false;          
+        }
+
+        public static void LoadSFX()
+        {
+            sfx_active = true;
+        }
+
+        public static void PlaySFX(string sfx_name)
+        {
+            if (sfx_active)
+            {
+                Audio.PlaySoundEffect(GameResources.GameSound(sfx_name));
+            }
+        }
+
     }
 }
