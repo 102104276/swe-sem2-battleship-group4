@@ -36,6 +36,11 @@ namespace BattleShips
 
         private static ShipName _selectedShip = ShipName.Tug;
 
+
+        private const int CLEAR_BUTTON_HEIGHT = 46;
+        private const int CLEAR_BUTTON_WIDTH = 56;
+        private const int CLEAR_BUTTON_LEFT = 620;
+        
         // Summary: Handles user input for the Deployment phase of the game.
         /* 
           Remarks: Involves selecting the ships, deloying ships, changing the direction
@@ -51,13 +56,15 @@ namespace BattleShips
             }
 
             //Moves ships direction to vertical when down or up key pressed
-            if (SwinGame.KeyTyped(KeyCode.vk_UP) | SwinGame.KeyTyped(KeyCode.vk_DOWN))
+
+            if (SwinGame.KeyTyped(KeyCode.vk_UP) || SwinGame.KeyTyped(KeyCode.vk_DOWN))
             {
                 _currentDirection = Direction.UpDown;
             }
 
             //Moves ships direction to horizontal when left or right key pressed
-            if (SwinGame.KeyTyped(KeyCode.vk_LEFT) | SwinGame.KeyTyped(KeyCode.vk_RIGHT))
+
+            if (SwinGame.KeyTyped(KeyCode.vk_LEFT) || SwinGame.KeyTyped(KeyCode.vk_RIGHT))
             {
                 _currentDirection = Direction.LeftRight;
             }
@@ -99,6 +106,12 @@ namespace BattleShips
                 {
                     GameController.HumanPlayer.RandomizeDeployment();
                 }
+                else if (UtilityFunctions.IsMouseInRectangle(CLEAR_BUTTON_LEFT, TOP_BUTTONS_TOP, CLEAR_BUTTON_WIDTH, CLEAR_BUTTON_HEIGHT))
+                {
+                    //clears board
+                    GameController.HumanPlayer.PlayerGrid.ClearBoard();
+
+                }
             }
         }
 
@@ -106,8 +119,7 @@ namespace BattleShips
           Summary:
           The user has clicked somewhere on the screen, check if its is a deployment and deploy
           the current ship if that is the case.
-        */
-        /*
+
           Remarks:
           If the click is in the grid it deploys to the selected location
           with the indicated direction
@@ -160,6 +172,11 @@ namespace BattleShips
                 //SwinGame.DrawText("U/D", Color.White, GameFont("Menu"), UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP)
                 //SwinGame.DrawText("L/R", Color.Gray, GameFont("Menu"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP)
             }
+
+            //displays current game difficulty
+            SwinGame.DrawText("Difficulty: " + GameController.AIDifficulty, Color.White, 530, 570);
+
+            SwinGame.DrawBitmap(GameResources.GameImage("Clear"), 620, TOP_BUTTONS_TOP);
 
             //DrawShips
             foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))

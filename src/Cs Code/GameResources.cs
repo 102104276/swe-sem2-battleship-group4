@@ -51,6 +51,9 @@ namespace BattleShips
 			NewImage("Explosion", "explosion.png");
 			NewImage("Splash", "splash.png");
 
+            //clear screen
+            NewImage("Clear", "clear_sceen_button.png");
+
 		}
 
 		// Loads all sounds

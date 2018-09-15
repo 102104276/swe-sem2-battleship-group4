@@ -141,6 +141,14 @@ namespace BattleShips
             AddShip(row, col, direction, newShip);
         }
 
+        public void ClearBoard()
+        {
+            foreach (KeyValuePair<ShipName, Ship> ship in _Ships)
+            {
+                ship.Value.Remove();
+            }
+        }
+
         /*
         Summary
         AddShip add a ship to the SeaGrid
@@ -175,7 +183,7 @@ namespace BattleShips
                 int i = 0;
                 for (i = 0; i <= size - 1; i++)
                 {
-                    if (currentRow < 0 | currentRow >= Width | currentCol < 0 | currentCol >= Height)
+                    if (currentRow < 0 || currentRow >= Width || currentCol < 0 || currentCol >= Height)
                     {
                         throw new InvalidOperationException("Ship can't fit on the board");
                     }
@@ -205,14 +213,14 @@ namespace BattleShips
         }
 
         /*
-         Summary:
-         HitTile hits a tile at a row/col, and whatever tile has been hit, a
-         result will be displayed.
+        Summary:
+        HitTile hits a tile at a row/col, and whatever tile has been hit, a
+        result will be displayed.
 
-         Parameter: row - the row at which is being shot
-         Parameter: col - the cloumn at which is being shot
-         Returns: An attackresult (hit, miss, sunk, shotalready)
-         */
+        Parameter: row - the row at which is being shot
+        Parameter: col - the cloumn at which is being shot
+        Returns: An attackresult (hit, miss, sunk, shotalready)
+        */
 
         public AttackResult HitTile(int row, int col)
         {

@@ -138,10 +138,10 @@ namespace BattleShips
 				if (IsDestroyed)
 				{
 					return 0;
-				}
+				} 
 				else
 				{
-					return (Hits * 12) - Shots - (PlayerGrid.ShipsKilled * 20);
+					return (Hits * 12) - Missed - (PlayerGrid.ShipsKilled * 20);
 				}
 			}
 		}
