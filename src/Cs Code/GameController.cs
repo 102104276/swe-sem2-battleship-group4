@@ -1,6 +1,5 @@
 /*
-  Summary:
-  The GameController is responsible for controlling the game,
+  Summary: The GameController is responsible for controlling the game,
   managing user input, and displaying the current state of the
   game.
 */
@@ -28,8 +27,7 @@ namespace BattleShips
         private static AIOption _aiSetting;
 
         /*
-          Summary:
-          Returns the current state of the game, indicating which screen is
+          Summary: Returns the current state of the game, indicating which screen is
           currently being used
           Value: The current state
           Returns: The current state
@@ -76,7 +74,7 @@ namespace BattleShips
         }
 
          // Summary: Starts a new game.
-         //Remarks: Creates an AI player based upon the _aiSetting.
+         // Remarks: Creates an AI player based upon the _aiSetting.
         public static void StartGame()
         {
             if (_theGame != null)
@@ -112,7 +110,7 @@ namespace BattleShips
             AddNewState(GameState.Deploying);
         }
 
-        //Summary: Stops listening to the old game once a new game is started
+        // Summary: Stops listening to the old game once a new game is started
         private static void EndGame()
         {
             //RemoveHandler _human.PlayerGrid.Changed, AddressOf GridChanged
@@ -121,8 +119,7 @@ namespace BattleShips
         }
 
         /*
-          Summary:
-          Listens to the game grids for any changes and redraws the screen
+          Summary: Listens to the game grids for any changes and redraws the screen
           when the grids change
           sender: the grid that changed
           args: not used
@@ -134,7 +131,7 @@ namespace BattleShips
         }
 
         
-        //Summary: Plays the hit sound effect and potentially draws the animation of a succesful hit
+        // Summary: Plays the hit sound effect and potentially draws the animation of a succesful hit
         private static void PlayHitSequence(int row, int column, bool showAnimation)
         {
             if (showAnimation)
@@ -145,7 +142,7 @@ namespace BattleShips
             UtilityFunctions.DrawAnimationSequence();
         }
 
-        //Summary: Plays the miss sound effect and potentially draws the animation of a miss
+        // Summary: Plays the miss sound effect and potentially draws the animation of a miss
         private static void PlayMissSequence(int row, int column, bool showAnimation)
         {
             if (showAnimation)
@@ -369,7 +366,7 @@ namespace BattleShips
             AddNewState(newState);
         }
 
-        //Summary: Ends the current state, returning to the prior state
+        // Summary: Ends the current state, returning to the prior state
         public static void EndCurrentState()
         {
             _state.Pop();
@@ -377,8 +374,8 @@ namespace BattleShips
 
         /*
          Summary: Sets the difficulty for the next level of the game.
-         setting: the new difficulty level
-         */
+          setting: the new difficulty level
+        */
         public static void SetDifficulty(AIOption setting)
         {
             _aiSetting = setting;

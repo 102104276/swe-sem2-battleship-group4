@@ -72,7 +72,7 @@ namespace BattleShips
 
                 s.Name = line.Substring(0, NAME_WIDTH);
                 s.Value = Convert.ToInt32(line.Substring(NAME_WIDTH));
-                _Scores.Add(s);
+                _scores.Add(s);
             }
             input.Close();
         }
@@ -181,7 +181,7 @@ namespace BattleShips
                 }
 
                 //Slides the new score into the correct position
-                _scores.RemoveAt(_Scores.Count - 1);
+                _scores.RemoveAt(_scores.Count - 1);
                 _scores.Add(s);
                 _scores.Sort();
 

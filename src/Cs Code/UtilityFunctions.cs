@@ -325,7 +325,7 @@ namespace BattleShips
         public static void UpdateAnimations()
         {
             List<Sprite> ended = new List<Sprite>();
-            foreach (Sprite s in _Animations)
+            foreach (Sprite s in _animations)
             {
                 SwinGame.UpdateSprite(s);
                 if (s.AnimationHasEnded)
@@ -343,7 +343,7 @@ namespace BattleShips
 
         public static void DrawAnimations()
         {
-            foreach (Sprite s in _Animations)
+            foreach (Sprite s in _animations)
             {
                 SwinGame.DrawSprite(s);
             }
