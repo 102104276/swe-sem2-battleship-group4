@@ -93,37 +93,44 @@ namespace BattleShips
                     DoDeployClick();
                 }
 
-                if (GameController.HumanPlayer.ReadyToDeploy & UtilityFunctions.IsMouseInRectangle(PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
+                if (help_screen == false)
                 {
-                    GameController.EndDeployment();
-                }
-                else if (UtilityFunctions.IsMouseInRectangle(UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT))
-                {
-                    _currentDirection = Direction.LeftRight;
-                }
-                else if (UtilityFunctions.IsMouseInRectangle(LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT))
-                {
-                    _currentDirection = Direction.LeftRight;
-                }
-                else if (UtilityFunctions.IsMouseInRectangle(RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP, RANDOM_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
-                {
-                    GameController.HumanPlayer.RandomizeDeployment();
-                }
-                else if (UtilityFunctions.IsMouseInRectangle(CLEAR_BUTTON_LEFT, TOP_BUTTONS_TOP, CLEAR_BUTTON_WIDTH, CLEAR_BUTTON_HEIGHT))
-                {
-                    //clears board
-                    GameController.HumanPlayer.PlayerGrid.ClearBoard();
-                }
-                else if (UtilityFunctions.IsMouseInRectangle(HELP_BUTTON_LEFT,TOP_BUTTONS_TOP,CLEAR_BUTTON_WIDTH, CLEAR_BUTTON_HEIGHT))
-                {
-                 if (help_screen)
+                    if (GameController.HumanPlayer.ReadyToDeploy & UtilityFunctions.IsMouseInRectangle(PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
                     {
-                        help_screen = false;
+                        GameController.EndDeployment();
                     }
-                 else
+                    else if (UtilityFunctions.IsMouseInRectangle(UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT))
                     {
-                        help_screen = true;
+                        _currentDirection = Direction.LeftRight;
                     }
+                    else if (UtilityFunctions.IsMouseInRectangle(LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT))
+                    {
+                        _currentDirection = Direction.LeftRight;
+                    }
+                    else if (UtilityFunctions.IsMouseInRectangle(RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP, RANDOM_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
+                    {
+                        GameController.HumanPlayer.RandomizeDeployment();
+                    }
+                    else if (UtilityFunctions.IsMouseInRectangle(CLEAR_BUTTON_LEFT, TOP_BUTTONS_TOP, CLEAR_BUTTON_WIDTH, CLEAR_BUTTON_HEIGHT))
+                    {
+                        //clears board
+                        GameController.HumanPlayer.PlayerGrid.ClearBoard();
+                    }
+                    else if (UtilityFunctions.IsMouseInRectangle(HELP_BUTTON_LEFT, TOP_BUTTONS_TOP, CLEAR_BUTTON_WIDTH, CLEAR_BUTTON_HEIGHT))
+                    {
+                        if (help_screen)
+                        {
+                            help_screen = false;
+                        }
+                        else
+                        {
+                            help_screen = true;
+                        }
+                    }
+                }
+                else
+                {
+                    help_screen = false;
                 }
             }
         }
@@ -170,10 +177,6 @@ namespace BattleShips
         // Summary: Draws the deployment screen showing the field and the ships that the player can deploy.
         public static void DrawDeployment()
         {
-            if (help_screen)
-            {
-                UtilityFunctions.DrawHelp(new string[] { "Up Arrow: chagen direction of the ships to vertical", "Right Arrow: change direction of ships to horizontal", "Random button: to change position of ships randomly", "Play button : start the game", "Esc key : to esc this mode" });
-            }
 
             UtilityFunctions.DrawField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer, true);
 
@@ -233,6 +236,11 @@ namespace BattleShips
 
             SwinGame.DrawBitmap(GameResources.GameImage("RandomButton"), RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP);
             UtilityFunctions.DrawMessage();
+
+            if (help_screen)
+            {
+                UtilityFunctions.DrawHelp(new string[] { "Up Arrow: chagen direction of the ships to vertical", "Right Arrow: change direction of ships to horizontal", "Random button: to change position of ships randomly", "Play button : start the game", "Esc key : to esc this mode" });
+            }
         }
 
         // Summary: Gets the ship that the mouse is currently over in the selection panel.
