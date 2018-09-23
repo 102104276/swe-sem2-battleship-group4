@@ -178,7 +178,7 @@ namespace BattleShips
         // 
         public static void ReadHighScore(int value)
         {
-            const int ENTRY_TOP = 500;
+            const int ENTRY_TOP = 600;
 
             if (_Scores.Count == 0)
                 LoadScores();

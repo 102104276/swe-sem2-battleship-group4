@@ -54,6 +54,9 @@ namespace BattleShips
             //clear screen
             NewImage("Clear", "clear_sceen_button.png");
 
+            //help 
+            NewImage("Help", "help.png");
+
 		}
 
 		// Loads all sounds

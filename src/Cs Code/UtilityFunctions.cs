@@ -253,6 +253,23 @@ namespace BattleShips
             set { _message = value; }
         }
 
+
+        public static void DrawHelp(string[] text)
+        {
+            int i;
+            Graphics.DrawRectangle(Color.White, 50, 100, 700, 400);
+            Graphics.FillRectangle(Color.Blue, 50, 100, 700, 400);
+            i = 0;
+            foreach (string phrase in text)
+            {
+                Text.DrawText(phrase, Color.White, 70, (120 + (i * 20)));
+                i++;
+            }
+
+
+            
+        }
+
         //Summary: Draws the background for the current state of the game
 
         public static void DrawMessage()
