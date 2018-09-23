@@ -50,7 +50,6 @@ namespace BattleShips
             }
         }
 
-
         private static List<Score> _Scores = new List<Score>();
         // Summary: 
         // Loads the scores from the highscores text file.
@@ -209,7 +208,7 @@ namespace BattleShips
 
                 s.Name = SwinGame.TextReadAsASCII();
 
-                if (s.Name.Length < 3)
+                if (s.Name.Length <= 3)
                 {
                     s.Name = s.Name + new string(Convert.ToChar(" "), 3 - s.Name.Length);
                 }
@@ -218,7 +217,7 @@ namespace BattleShips
                 _Scores.RemoveAt(_Scores.Count - 1);
                 _Scores.Add(s);
                 _Scores.Sort();
-
+                HighScoreController.SaveScores();
                 GameController.EndCurrentState();
             }
         }
