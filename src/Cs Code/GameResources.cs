@@ -1,21 +1,19 @@
+/*
+  GameResources is in charge of loading all of the game's resources/assets.
+  This includes fonts, images, sounds etc.
+*/
 
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Data;
 using System.Diagnostics;
 using SwinGameSDK;
 
-/*
-GameResources is in charge of loading all of the game's resources/assets.
-This includes fonts, images, sounds etc.
-*/
 namespace BattleShips
 {
 	public static class GameResources
 	{
-
 		// Loads all fonts
 		private static void LoadFonts()
 		{
@@ -54,6 +52,8 @@ namespace BattleShips
             //clear screen
             NewImage("Clear", "clear_sceen_button.png");
 
+            //back button
+            NewImage("Back", "back_button.png");
 		}
 
 		// Loads all sounds
@@ -74,37 +74,33 @@ namespace BattleShips
 			NewMusic("Background", "horrordrone.mp3");
 		}
 
-		// Gets a Font Loaded in the Resources
+		// Summary: Gets a Font Loaded in the Resources
 		// Parameter: font - Name of Font
 		// Returns: The Font Loaded with this Name
-
 		public static Font GameFont(string font)
 		{
 			return _fonts[font];
 		}
 
-		// Gets an Image loaded in the Resources
+		// Summary: Gets an Image loaded in the Resources
 		// Parameter: image - Name of image
 		// Returns: The image loaded with this name
-
 		public static Bitmap GameImage(string image)
 		{
 			return _images[image];
 		}
 
-		// Gets an sound loaded in the Resources
+		// Summary: Gets an sound loaded in the Resources
 		// Parameter: sound - Name of sound
 		// Returns: The sound with this name
-
 		public static SoundEffect GameSound(string sound)
 		{
 			return _sounds[sound];
 		}
 
-		// Gets the music loaded in the Resources
+		// Summary: Gets the music loaded in the Resources
 		// Parameter: music - Name of music
 		// Returns: The music with this name
-
 		public static Music GameMusic(string music)
 		{
 			return _music[music];
@@ -113,7 +109,6 @@ namespace BattleShips
 		private static Dictionary<string, Bitmap> _images = new Dictionary<string, Bitmap>();
 		private static Dictionary<string, Font> _fonts = new Dictionary<string, Font>();
 		private static Dictionary<string, SoundEffect> _sounds = new Dictionary<string, SoundEffect>();
-
 		private static Dictionary<string, Music> _music = new Dictionary<string, Music>();
 		private static Bitmap _background;
 		private static Bitmap _animation;
@@ -123,10 +118,7 @@ namespace BattleShips
 
 		private static SoundEffect _startSound;
 
-		// The Resources Class stores all of the Games Media Resources, such as Images, Fonts
-		// Sounds, Music.
-
-		// Calls all of the loading methods. Just run this once and the assets are set up!
+		// Summary: Calls all of the loading methods. Just run this once and the assets are set up!
 		public static void LoadResources()
 		{
 			int width = 0;
@@ -201,12 +193,10 @@ namespace BattleShips
 				SwinGame.RefreshScreen();
 				SwinGame.ProcessEvents();
 			}
-
 			SwinGame.Delay(1500);
-
 		}
 
-		// Presumably draws a message...
+		// Summary: Presumably draws a message...
 		// Parameter: message - Message to display?
 		// Parameter: number - currently unused
 		private static void ShowMessage(string message, int number)
@@ -242,7 +232,7 @@ namespace BattleShips
 			SwinGame.ProcessEvents();
 		}
 
-		// Frees some resources and a sound, clears the screen, then changes the screen size.
+		// Summary: Frees some resources and a sound, clears the screen, then changes the screen size.
 		// Parameter: width - Width of screen to change to
 		// Parameter: height - Height of screen to change to
 		private static void EndLoadingScreen(int width, int height)
@@ -260,7 +250,7 @@ namespace BattleShips
 			SwinGame.ChangeScreenSize(width, height);
 		}
 
-		// Adds a new font to the fonts list
+		// Summary: Adds a new font to the fonts list
 		// Parameter: fontName - The name of the font to use
 		// Parameter: fileName - The file location to search for
 		// Parameter: size - The size of the font
@@ -269,7 +259,7 @@ namespace BattleShips
 			_fonts.Add(fontName, SwinGame.LoadFont(fileName, size));
 		}
 
-		// Adds a new image to the image list
+		// Summary: Adds a new image to the image list
 		// Parameter: imageName - The name of the image to use
 		// Parameter: fileName - The file location to search for
 		private static void NewImage(string imageName, string fileName)
@@ -277,7 +267,7 @@ namespace BattleShips
 			_images.Add(imageName, SwinGame.LoadBitmap(fileName));
 		}
 
-		// Adds a new 'transparent colour image' to the images list
+		// Summary: Adds a new 'transparent colour image' to the images list
 		// Parameter: imageName - The name of the image to use
 		// Parameter: fileName - The file location to search for
 		// Parameter: transColor - Currently unused
@@ -288,13 +278,13 @@ namespace BattleShips
 			_images.Add(imageName, bitmap);
 		}
 
-		// Literally just calls the above, but is spelt 'colour' not 'color'
+		// Summary: Literally just calls the above, but is spelt 'colour' not 'color'
 		private static void NewTransparentColourImage(string imageName, string fileName, Color transColor)
 		{
 			NewTransparentColorImage(imageName, fileName, transColor);
 		}
 
-		// Adds a new sound to the sound list
+		// Summary: Adds a new sound to the sound list
 		// Parameter: soundName - The name to use for the sound file
 		// Parameter: fileName - The file location to search for
 		private static void NewSound(string soundName, string fileName)
@@ -302,7 +292,8 @@ namespace BattleShips
 			_sounds.Add(soundName, Audio.LoadSoundEffect(SwinGame.PathToResource(fileName, ResourceKind.SoundResource)));
 		}
 
-		// Adds a new music file to the music list
+
+		// Summary: Adds a new music file to the music list
 		// Parameter: musicName - The name to use for the music file
 		// Parameter: fileName - The file location to search for
 		private static void NewMusic(string musicName, string fileName)
@@ -310,7 +301,7 @@ namespace BattleShips
 			_music.Add(musicName, Audio.LoadMusic(SwinGame.PathToResource(fileName, ResourceKind.SoundResource)));
 		}
 
-		// Frees all game fonts from memory
+		// Summary: Frees all game fonts from memory
 		private static void FreeFonts()
 		{
 			foreach (Font obj in _fonts.Values)
@@ -319,7 +310,7 @@ namespace BattleShips
 			}
 		}
 
-		// Frees all images from memory
+		// Summary: Frees all images from memory
 		private static void FreeImages()
 		{
 			foreach (Bitmap obj in _images.Values)
@@ -328,7 +319,7 @@ namespace BattleShips
 			}
 		}
 
-		// Frees all sounds from memory
+		// Summary: Frees all sounds from memory
 		private static void FreeSounds()
 		{		
 			foreach (SoundEffect obj in _sounds.Values)
@@ -337,7 +328,7 @@ namespace BattleShips
 			}
 		}
 
-		// Frees all music files from memory
+		// Summary: Frees all music files from memory
 		private static void FreeMusic()
 		{
 
@@ -347,7 +338,7 @@ namespace BattleShips
 			}
 		}
 
-		// Frees everything from memory!
+		// Summary: Frees everything from memory!
 		public static void FreeResources()
 		{
 			FreeFonts();

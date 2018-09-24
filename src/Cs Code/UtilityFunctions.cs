@@ -1,8 +1,12 @@
+/*
+  Summary: This Class includes a number of utility methods for
+  drawing and interacting with the Mouse.
+*/
+
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Data;
 using System.Diagnostics;
 using SwinGameSDK;
 
@@ -59,12 +63,12 @@ namespace BattleShips
         }
 
         /*
-        Summary: Determines if the mouse is in a given rectangle.
-        Parameter: X - the x location to check
-        Parameter: Y - the y location to check
-        Paramenter: W - the width to check
-        Parameter: H - the height to check
-        Returns: true if the mouse is in the area checked
+          Summary: Determines if the mouse is in a given rectangle.
+          Parameter: X - the x location to check
+          Parameter: Y - the y location to check
+          Paramenter: W - the width to check
+          Parameter: H - the height to check
+          Returns: true if the mouse is in the area checked
         */
 
         public static bool IsMouseInRectangle(int x, int y, int w, int h)
@@ -88,10 +92,10 @@ namespace BattleShips
         }
 
         /*
-        Summary: Draws a large field using the grid and the indicated player's ships.
-        Parameter: grid - The grid to draw
-        Parameter: thePlayer - the players ships to show
-        Parameter: showShips - indicates if the ships should be shown.
+          Summary: Draws a large field using the grid and the indicated player's ships.
+          Parameter: grid - The grid to draw
+          Parameter: thePlayer - the players ships to show
+          Parameter: showShips - indicates if the ships should be shown.
         */
 
         public static void DrawField(ISeaGrid grid, Player thePlayer, bool showShips)
@@ -101,9 +105,9 @@ namespace BattleShips
         }
 
         /*
-        Summary: Draws a small field, showing the attacks made and the locations of the player's ships
-        Parameyer: grid - the grid to show
-        Parameter: thePlayer - the player to show the ships of
+          Summary: Draws a small field, showing the attacks made and the locations of the player's ships
+          Parameyer: grid - the grid to show
+          Parameter: thePlayer - the player to show the ships of
         */
 
         public static void DrawSmallField(ISeaGrid grid, Player thePlayer)
@@ -121,18 +125,18 @@ namespace BattleShips
         }
 
         /*
-        Summary: Draws the player's grid and ships.
-        Parameter: grid - the grid to show
-        Parameter: thePlayer - the player to show the ships of
-        Parameter: small - true if the small grid is shown
-        Parameter: showShips - true if ships are to be shown
-        Parameter: left - the left side of the grid
-        Parameter: top - the top of the grid
-        Parameter: width - the width of the grid
-        Parameter: height - the height of the grid
-        Parameter: cellWidth - the width of each cell
-        Parameter: cellHeight - the height of each cell
-        Parameter: cellGap - the gap between the cells
+          Summary: Draws the player's grid and ships.
+          Parameter: grid - the grid to show
+          Parameter: thePlayer - the player to show the ships of
+          Parameter: small - true if the small grid is shown
+          Parameter: showShips - true if ships are to be shown
+          Parameter: left - the left side of the grid
+          Parameter: top - the top of the grid
+          Parameter: width - the width of the grid
+          Parameter: height - the height of the grid
+          Parameter: cellWidth - the width of each cell
+          Parameter: cellHeight - the height of each cell
+          Parameter: cellGap - the gap between the cells
         */
 
         private static void DrawCustomField(ISeaGrid grid, Player thePlayer, bool small, bool showShips, int left, int top, int width, int height, int cellWidth, int cellHeight,
@@ -160,8 +164,8 @@ namespace BattleShips
                     switch (grid[row, col])
                     {
                         //case TileView.Ship:
-                        //	draw = false;
-                        //	break;
+                        //draw = false;
+                        //break;
 
                         //If small Then fillColor = _SMALL_SHIP Else fillColor = _LARGE_SHIP
                         case TileView.Miss:
@@ -242,9 +246,9 @@ namespace BattleShips
 
         private static string _message;
         /*
-        Summary: The message to display
-        Value: The message to display
-        Returns: The message to display
+          Summary: The message to display
+          Value: The message to display
+          Returns: The message to display
         */
 
         public static string Message
@@ -261,10 +265,10 @@ namespace BattleShips
         }
 
         /*
-        Summary:
-        Draws the background for the current state of the game
-        Remarks:
-        Isuru: Updated Draw frame rate function;
+          Summary:
+          Draws the background for the current state of the game
+          Remarks:
+          Isuru: Updated Draw frame rate function;
         */
 
         public static void DrawBackground()
@@ -303,7 +307,7 @@ namespace BattleShips
         }
 
 
-        private static List<Sprite> _Animations = new List<Sprite>();
+        private static List<Sprite> _animations = new List<Sprite>();
         private static void AddAnimation(int row, int col, string image)
         {
             Sprite s = default(Sprite);
@@ -320,13 +324,15 @@ namespace BattleShips
             s.Y = FIELD_TOP + row * (CELL_HEIGHT + CELL_GAP);
 
             s.StartAnimation("splash");
-            _Animations.Add(s);
+
+            _animations.Add(s);
         }
 
         public static void UpdateAnimations()
         {
             List<Sprite> ended = new List<Sprite>();
-            foreach (Sprite s in _Animations)
+
+            foreach (Sprite s in _animations)
             {
                 SwinGame.UpdateSprite(s);
                 if (s.AnimationHasEnded)
@@ -337,14 +343,15 @@ namespace BattleShips
 
             foreach (Sprite s in ended)
             {
-                _Animations.Remove(s);
+                _animations.Remove(s);
                 SwinGame.FreeSprite(s);
             }
         }
 
         public static void DrawAnimations()
         {
-            foreach (Sprite s in _Animations)
+
+            foreach (Sprite s in _animations)
             {
                 SwinGame.DrawSprite(s);
             }

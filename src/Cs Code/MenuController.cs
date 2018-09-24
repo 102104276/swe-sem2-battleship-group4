@@ -1,17 +1,16 @@
+/*
+  Summary: The menu controller handles the drawing and user interactions
+  from the menus in the game. These include the main menu, game
+  menu and the settings menu.
+*/
 
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Data;
 using System.Diagnostics;
 using SwinGameSDK;
 
-/*
-The menu controller handles the drawing and user interactions
-from the menus in the game. These include the main menu, game
-menu and the settings menu.
-*/
 namespace BattleShips
 {
 	static class MenuController
@@ -19,7 +18,6 @@ namespace BattleShips
 
 		// The menu structure for the game.
 		// These are the text captions for the menu items.
-
 		private static readonly string[][] _menuStructure =
 		{
 			new string[]
@@ -391,8 +389,6 @@ namespace BattleShips
                     {
                         UtilityFunctions.LoadSFX();
                     }
-
-
                     break;
 			}
 		}

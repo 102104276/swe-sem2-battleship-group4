@@ -1,59 +1,43 @@
-
-using Microsoft.VisualBasic;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-//using System.Data;
-using System.Diagnostics;
 /*
-Summary::
+ Summary:
  The GameStates represent the state of the BattleShips game play.
  This is used to control the actions and view displayed to
  the player.
  */
 
+using Microsoft.VisualBasic;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+
 namespace BattleShips
 {
     public enum GameState
     {
-        //Summary:
-        //The player is viewing the main menu.
-
+        // Summary: The player is viewing the main menu.
         ViewingMainMenu,
 
-        //Summary:
-        //The player is viewing the game menu
-
+        // Summary: The player is viewing the game menu
         ViewingGameMenu,
 
-        //Summary:
-        //The player is looking at the high scores
+        // Summary: The player is looking at the high scores
 
         ViewingHighScores,
 
-        //Summary:
-        //The player is altering the game settings
-
+        // Summary: The player is altering the game settings
         AlteringSettings,
 
-        //Summary:
-        //Players are deploying their ships
-
+        // Summary: Players are deploying their ships
         Deploying,
 
-       //Summary:
-       //Players are attempting to locate each others ships
-
+       // Summary: Players are attempting to locate each others ships
         Discovering,
 
-       //Summary:
-       //One player has won, showing the victory screen
-
+       // Summary: One player has won, showing the victory screen
         EndingGame,
 
-       //Summary:
-       //The player has quit. Show ending credits and terminate the game
-
+       // Summary: The player has quit. Show ending credits and terminate the game
         Quitting
     }
 }

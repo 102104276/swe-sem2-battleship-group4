@@ -1,14 +1,13 @@
 
 /*
-Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
-all ships are deployed and if all ships are detroyed. A Player can also attach.
+  Summary: Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
+  all ships are deployed and if all ships are detroyed. A Player can also attach.
 */
 
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Data;
 using System.Diagnostics;
 namespace BattleShips
 {
@@ -23,9 +22,8 @@ namespace BattleShips
 		protected BattleShipsGame _game;
 		private int _shots;
 		private int _hits;
-
 		private int _misses;
-		// Returns the game that the player is part of.
+
 		// Value: The game
 		// Returns: The game that the player is playing
 		public BattleShipsGame Game
@@ -34,14 +32,14 @@ namespace BattleShips
 			set { _game = value; }
 		}
 
-		// Sets the grid of the enemy player
+		// Summary: Sets the grid of the enemy player
 		// Value: The enemy's sea grid
 		public ISeaGrid Enemy
 		{
 			set { _enemyGrid = value; }
 		}
 
-		// Constructor for the Player
+		// Summary: Constructor for the Player
 		// Parameter: controller - The game that the player is playing in
 		public Player(BattleShipsGame controller)
 		{
@@ -56,11 +54,10 @@ namespace BattleShips
 					_ships.Add(name, new Ship(name));
 				}
 			}
-
 			RandomizeDeployment();
 		}
 
-		// The EnemyGrid is a ISeaGrid because you shouldn't be allowed to see the enemies ships
+		// Summary: The EnemyGrid is a ISeaGrid because you shouldn't be allowed to see the enemies ships
 		// Value: The grid to use.
 		// Returns: The enemy's grid.
 		public ISeaGrid EnemyGrid
@@ -69,7 +66,7 @@ namespace BattleShips
 			set { _enemyGrid = value; }
 		}
 
-		// The PlayerGrid is just a normal SeaGrid where the players ships can be deployed and seen
+		// Summary: The PlayerGrid is just a normal SeaGrid where the players ships can be deployed and seen
 		// Returns: The PlayerGrid.
 		public SeaGrid PlayerGrid
 		{
@@ -82,7 +79,7 @@ namespace BattleShips
 			get { return _playerGrid.AllDeployed; }
 		}
 
-		// Checks if all ships on your grid are destroyed!
+		// Summary: Checks if all ships on your grid are destroyed!
 		// Returns: True is all ships on the player grid are destroyed.
 		public bool IsDestroyed
 		{
@@ -90,13 +87,12 @@ namespace BattleShips
 			get { return _playerGrid.ShipsKilled == Enum.GetValues(typeof(ShipName)).Length - 1; }
 		}
 
-		// Returns the Player's ship with the given name.
+		// Summary: Returns the Player's ship with the given name.
 		// Parameter: Name - the name of the ship to return
 		// Returns: The ship with the indicated name
 		// Note: The none ship returns nothing/null
 		public Ship Ship(ShipName name)
 		{
-
 			if (name == ShipName.None)
 				return null;
 
@@ -104,32 +100,31 @@ namespace BattleShips
 
 		}
 
-		/// The number of shots the player has made
-		/// Value: Shots taken
-		/// Returns: The number of shots taken
+		// Summary: The number of shots the player has made
+		// Value: Shots taken
+		// Returns: The number of shots taken
 		public int Shots
 		{
 			get { return _shots; }
 		}
 
-		// Fairly self explanatory.
+		// Summary: Fairly self explanatory.
 		public int Hits
 		{
 			get { return _hits; }
 		}
 
-		// Total number of shots that missed
+		// Summary: Total number of shots that missed
 		// Value: Miss count
 		// Returns: The number of shots that have missed ships
 		public int Missed
-		{
-			get { return _misses; }
-		}
+        {
+            get { return _misses; }
+        }
 
-		// Returns the score of the player.
 		/*
-		Returns: 0 if all of the player's ships are destroyed. Returns the player's
-		score otherwise, as per the calculation below.
+		  Returns: The score of the player. 0 if all of the player's ships are destroyed. 
+          Returns the player's score otherwise, as per the calculation below.
 		*/
 		public int Score
 		{
@@ -146,7 +141,7 @@ namespace BattleShips
 			}
 		}
 
-		// Makes it possible to enumerate over the ships the player has.
+		// Summary: Makes it possible to enumerate over the ships the player has.
 		// Returns: A Ship enumerator
 		public IEnumerator<Ship> GetShipEnumerator()
 		{
@@ -162,7 +157,7 @@ namespace BattleShips
 			return GetShipEnumerator();
 		}
 
-		// Makes it possible to enumerate over the ships the player has.
+		// Summary: Makes it possible to enumerate over the ships the player has.
 		// Returns: A Ship enumerator
 		public IEnumerator GetEnumerator()
 		{
@@ -174,14 +169,14 @@ namespace BattleShips
 			return lst.GetEnumerator();
 		}
 
-		// Virtual Attack allows the player to shoot
+		// Summary: Virtual Attack allows the player to shoot
 		public virtual AttackResult Attack()
 		{
-			// human does nothing here...
+			//human does nothing here...
 			return null;
 		}
 
-		// Shoot at a given row/column
+		// Summary: Shoot at a given row/column
 		// Parameter: row - The row to attack
 		// Parameter: col - The column to attack
 		// Returns: The result of the attack
@@ -205,14 +200,13 @@ namespace BattleShips
 			return result;
 		}
 
-		// Randomises the deployment of ships on the player's grid.
+		// Summary: Randomises the deployment of ships on the player's grid.
 		public virtual void RandomizeDeployment()
 		{
 			bool placementSuccessful = false;
 			Direction heading = default(Direction);
 
-			// for each ship to deploy in shipist
-
+			//for each ship to deploy in shipist
 			foreach (ShipName shipToPlace in Enum.GetValues(typeof(ShipName)))
 			{
 				if (shipToPlace == ShipName.None)
@@ -220,7 +214,7 @@ namespace BattleShips
 
 				placementSuccessful = false;
 
-				// generate random position until the ship can be placed
+				//generate random position until the ship can be placed
 				do
 				{
 					int dir = _random.Next(2);
@@ -237,7 +231,7 @@ namespace BattleShips
 						heading = Direction.LeftRight;
 					}
 
-					// try to place ship, if position unplaceable, generate new coordinates
+					//try to place ship, if position unplaceable, generate new coordinates
 					try
 					{
 						PlayerGrid.MoveShip(x, y, shipToPlace, heading);

@@ -1,40 +1,31 @@
-
+// Summary: HighScoreController controls displaying and collecting high score data.
+// Remarks: Data is saved to a file.
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Data;
 using System.Diagnostics;
 using System.IO;
 using SwinGameSDK;
-
-// Summary: 
-// Controls displaying and collecting high score data.
-// 
-// Remarks: 
-// Data is saved to a file.
-// 
 namespace BattleShips
 {
     static class HighScoreController
     {
         private const int NAME_WIDTH = 3;
-
         private const int SCORES_LEFT = 490;
-        // Summary: 
-        // The score structure is used to keep the name and
-        // score of the top players together.
-        // 
+        /* 
+           Summary: The score structure is used to keep the name and
+           score of the top players together.
+        */ 
         private struct Score : IComparable
         {
             public string Name;
 
             public int Value;
-            // Summary: 
-            // Allows scores to be compared to facilitate sorting
-            // 
+
+            // Summary: Allows scores to be compared to facilitate sorting
             // obj: the object to compare to
-            // <returns>a value that indicates the sort order</returns>
+            // Returns: a value that indicates the sort order
             public int CompareTo(object obj)
             {
                 if (obj is Score)
@@ -50,18 +41,9 @@ namespace BattleShips
             }
         }
 
-
-        private static List<Score> _Scores = new List<Score>();
-        // Summary: 
-        // Loads the scores from the highscores text file.
-        // 
-        // Remarks: 
-        // The format is
-        // # of scores
-        // NNNSSS
-        // 
-        // Where NNN is the name and SSS is the score
-        // 
+        private static List<Score> _scores = new List<Score>();
+        // Summary: Loads the scores from the highscores text file.
+        // Remarks: The format is # of scores NNNSSS Where NNN is the name and SSS is the score
         private static void LoadScores()
         {
             string filename = null;
@@ -74,7 +56,7 @@ namespace BattleShips
             int numScores = 0;
             numScores = Convert.ToInt32(input.ReadLine());
 
-            _Scores.Clear();
+            _scores.Clear();
 
             int i = 0;
 
@@ -88,21 +70,14 @@ namespace BattleShips
 
                 s.Name = line.Substring(0, NAME_WIDTH);
                 s.Value = Convert.ToInt32(line.Substring(NAME_WIDTH));
-                _Scores.Add(s);
+
+                _scores.Add(s);
             }
             input.Close();
         }
 
-        // Summary: 
-        // Saves the scores back to the highscores text file.
-        // 
-        // Remarks: 
-        // The format is
-        // # of scores
-        // NNNSSS
-        // 
-        // Where NNN is the name and SSS is the score
-        // 
+        // Summary: Saves the scores back to the highscores text file.
+        // Remarks: The format is # of scores NNNSSS Where NNN is the name and SSS is the score
         private static void SaveScores()
         {
             string filename = null;
@@ -111,9 +86,9 @@ namespace BattleShips
             StreamWriter output = default(StreamWriter);
             output = new StreamWriter(filename);
 
-            output.WriteLine(_Scores.Count);
+            output.WriteLine(_scores.Count);
 
-            foreach (Score s in _Scores)
+            foreach (Score s in _scores)
             {
                 output.WriteLine(s.Name + s.Value);
             }
@@ -121,27 +96,25 @@ namespace BattleShips
             output.Close();
         }
 
-        // Summary: 
-        // Draws the high scores to the screen.
-        // 
+        // Summary: Draws the high scores to the screen.
         public static void DrawHighScores()
         {
             const int SCORES_HEADING = 40;
             const int SCORES_TOP = 80;
             const int SCORE_GAP = 30;
 
-            if (_Scores.Count == 0)
+            if (_scores.Count == 0)
                 LoadScores();
 
             SwinGame.DrawText("   High Scores   ", Color.White, GameResources.GameFont("Courier"), SCORES_LEFT, SCORES_HEADING);
 
             //For all of the scores
             int i = 0;
-            for (i = 0; i <= _Scores.Count - 1; i++)
+            for (i = 0; i <= _scores.Count - 1; i++)
             {
                 Score s = default(Score);
 
-                s = _Scores[i];
+                s = _scores[i];
 
                 //for scores 1 - 9 use 01 - 09
                 if (i < 9)
@@ -155,12 +128,8 @@ namespace BattleShips
             }
         }
 
-        // Summary: 
-        // Handles the user input during the top score screen.
-        // 
-        // Remarks: 
-        // Updated the Keycodes
-        // 
+        // Summary: Handles the user input during the top score screen.
+        // Remarks: Updated the Keycodes
         public static void HandleHighScoreInput()
         {
             if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.vk_ESCAPE) || SwinGame.KeyTyped(KeyCode.vk_RETURN))
@@ -169,22 +138,18 @@ namespace BattleShips
             }
         }
 
-        // Summary: 
-        // Read the user's name for their highscore.
-        // 
-        // value: the player's score.
-        // Remarks: 
-        // This verifies if the score is a highscore.
-        // 
+        // Summary: Read the user's name for their highscore.
+        // Value: the player's score.
+        // Remarks: This verifies if the score is a highscore.
         public static void ReadHighScore(int value)
         {
             const int ENTRY_TOP = 500;
 
-            if (_Scores.Count == 0)
+            if (_scores.Count == 0)
                 LoadScores();
 
             //is it a high score
-            if (value > _Scores[_Scores.Count - 1].Value)
+            if (value > _scores[_scores.Count - 1].Value)
             {
                 Score s = new Score();
                 s.Value = value;
@@ -215,9 +180,9 @@ namespace BattleShips
                 }
 
                 //Slides the new score into the correct position
-                _Scores.RemoveAt(_Scores.Count - 1);
-                _Scores.Add(s);
-                _Scores.Sort();
+                _scores.RemoveAt(_scores.Count - 1);
+                _scores.Add(s);
+                _scores.Sort();
 
                 GameController.EndCurrentState();
             }

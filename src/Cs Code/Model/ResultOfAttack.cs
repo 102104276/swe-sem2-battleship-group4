@@ -1,35 +1,24 @@
 /*
- Summary:
- The result of an attack.
+  Summary:
+  The result of an attack.
 */
 namespace BattleShips
 {
     public enum ResultOfAttack
     {
-
-        // Summary:
-        //The player hit something
-
+        // Summary: The player hit something
         Hit,
 
-        //Summary
-        //The player missed
-
+        //Summary: The player missed
         Miss,
 
-        //Summary
-        //The player destroyed a ship
-
+        //Summary: The player destroyed a ship
         Destroyed,
 
-        //Summary
-        //That location was already shot.
-
+        //Summary: That location was already shot.
         ShotAlready,
 
-        //Summary
-        //The player killed all of the opponents ships
-
+        //Summary: The player killed all of the opponents ships
         GameOver,
     }
 }

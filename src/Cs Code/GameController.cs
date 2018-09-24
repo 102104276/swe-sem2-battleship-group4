@@ -1,18 +1,15 @@
+/*
+  Summary: The GameController is responsible for controlling the game,
+  managing user input, and displaying the current state of the
+  game.
+*/
 
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Data;
 using System.Diagnostics;
 using SwinGameSDK;
-
-/*
- Summary
- The GameController is responsible for controlling the game,
- managing user input, and displaying the current state of the
- game.
- */
 
 namespace BattleShips
 {
@@ -24,36 +21,26 @@ namespace BattleShips
 
         private static AIPlayer _ai;
 
-        /*
-         Summary
-         The game keeps information about it's current state in a stack of states
-         */
-
+        // Summary: The game keeps information about it's current state in a stack of states
         private static Stack<GameState> _state = new Stack<GameState>();
 
         private static AIOption _aiSetting;
-        /*
-         Summary
-         Returns the current state of the game, indicating which screen is
-         currently being used
-         
-         Value: The current state
-         Returns: The current state
-         */
 
+        /*
+          Summary: Returns the current state of the game, indicating which screen is
+          currently being used
+          Value: The current state
+          Returns: The current state
+        */
         public static GameState CurrentState
         {
             get { return _state.Peek(); }
         }
 
-        /*
-         Summary
-         Returns the human player.
-         
-         Value: The human player
-         Returns: The human player
-         */
 
+        // Summary:Returns the human player.
+        // Value: The human player
+        // Returns: The human player
         public static Player HumanPlayer
         {
             get { return _human; }
@@ -69,14 +56,9 @@ namespace BattleShips
             }
         }
 
-        /*
-         Summary
-         Returns the computer player.
-         
-         Value: the computer player
-         Returns: the computer player
-         */
-
+         // Summary: Returns the computer player.
+         // Value: the computer player
+         // Returns: the computer player
         public static Player ComputerPlayer
         {
             get { return _ai; }
@@ -91,14 +73,8 @@ namespace BattleShips
             _state.Push(GameState.ViewingMainMenu);
         }
 
-        /*
-         Summary
-         Starts a new game.
-         
-         Remarks:
-         Creates an AI player based upon the _aiSetting.
-        */
-
+         // Summary: Starts a new game.
+         // Remarks: Creates an AI player based upon the _aiSetting.
         public static void StartGame()
         {
             if (_theGame != null)
@@ -134,11 +110,7 @@ namespace BattleShips
             AddNewState(GameState.Deploying);
         }
 
-        /*
-        Summary:
-        Stops listening to the old game once a new game is started
-        */
-
+        // Summary: Stops listening to the old game once a new game is started
         private static void EndGame()
         {
             //RemoveHandler _human.PlayerGrid.Changed, AddressOf GridChanged
@@ -147,42 +119,30 @@ namespace BattleShips
         }
 
         /*
-        Summary
-        Listens to the game grids for any changes and redraws the screen
-        when the grids change
-        
-        sender: the grid that changed
-        args: not used
-        
-        */
 
+          Summary: Listens to the game grids for any changes and redraws the screen
+          when the grids change
+          sender: the grid that changed
+          args: not used
+        */
         private static void GridChanged(object sender, EventArgs args)
         {
             DrawScreen();
             SwinGame.RefreshScreen();
         }
-
-        /*
-        Summary: Plays the hit sound effect and potentially draws the animation of a succesful hit
-        */
-
+      
+        // Summary: Plays the hit sound effect and potentially draws the animation of a succesful hit
         private static void PlayHitSequence(int row, int column, bool showAnimation)
         {
             if (showAnimation)
             {
                 UtilityFunctions.AddExplosion(row, column);
             }
-
             UtilityFunctions.PlaySFX("Hit");
-
             UtilityFunctions.DrawAnimationSequence();
         }
 
-        /*
-        Summary:
-        Plays the miss sound effect and potentially draws the animation of a miss
-        */
-
+        // Summary: Plays the miss sound effect and potentially draws the animation of a miss
         private static void PlayMissSequence(int row, int column, bool showAnimation)
         {
             if (showAnimation)
@@ -196,16 +156,11 @@ namespace BattleShips
         }
 
         /*
-         Summary
-         Listens for attacks to be completed.
-         
+         Summary: Listens for attacks to be completed.
          Sender: the game
-         Result:
-         the result of the attack
-         Remarks:
-         Displays a message, plays sound and redraws the screen
-         */
-
+         Result: the result of the attack
+         Remarks: Displays a message, plays sound and redraws the screen
+       */
         private static void AttackCompleted(object sender, AttackResult result)
         {
             bool isHuman = false;
@@ -259,15 +214,10 @@ namespace BattleShips
             }
         }
         /*
-         Summary
-         Completes the deployment phase of the game and
-         switches to the battle mode (Discovering state)
-         
-         Remarks:
-         This adds the players to the game before switching
-         state.
-         */
-
+          Summary: Completes the deployment phase of the game and
+          switches to the battle mode (Discovering state)
+          Remarks: This adds the players to the game before switching state.
+        */
         public static void EndDeployment()
         {
             //deploy the players
@@ -278,14 +228,11 @@ namespace BattleShips
         }
 
         /*
-         Summary:
-         Gets the player to attack the indicated row and column.
-         
-         Row: the row to attack
-         Col: the column to attack
-         Remarks:
-         Checks the attack result once the attack is complete
-         */
+          Summary: Gets the player to attack the indicated row and column.
+          Row: the row to attack
+          Col: the column to attack
+          Remarks: Checks the attack result once the attack is complete
+        */
 
         public static void Attack(int row, int col)
         {
@@ -294,14 +241,8 @@ namespace BattleShips
             CheckAttackResult(result);
         }
 
-        /*
-         Summary:
-         Gets the AI to attack.
-         
-         Remarks:
-         Checks the attack result once the attack is complete.
-         */
-
+         // Summary: Gets the AI to attack.
+         // Remarks: Checks the attack result once the attack is complete.
         private static void AIAttack()
         {
             AttackResult result = default(AttackResult);
@@ -310,15 +251,12 @@ namespace BattleShips
         }
 
         /*
-         Summary
-         Checks the results of the attack and switches to
-         Ending the Game if the result was game over.
-         
-         Result: the result of the last attack
-         Remarks: Gets the AI to attack if the result switched
-         to the AI player.
-         */
-
+          Summary: Checks the results of the attack and switches to
+          Ending the Game if the result was game over. 
+          Result: the result of the last attack
+          Remarks: Gets the AI to attack if the result switched
+          to the AI player.
+        */
         private static void CheckAttackResult(AttackResult result)
         {
             switch (result.Value)
@@ -332,15 +270,13 @@ namespace BattleShips
                     break;
             }
         }
+
         /*
-         Summary:
-         Handles the user SwinGame.
-         
-         Remarks:
-         Reads key and mouse input and converts these into
-         actions for the game to perform. The actions
-         performed depend upon the state of the game.
-         */
+          Summary: Handles the user SwinGame.
+          Remarks: Reads key and mouse input and converts these into
+          actions for the game to perform. The actions
+          performed depend upon the state of the game.
+        */
 
         public static void HandleUserInput()
         {
@@ -375,14 +311,8 @@ namespace BattleShips
             UtilityFunctions.UpdateAnimations();
         }
 
-        /*
-         Summary:
-         Draws the current state of the game to the screen.
-         
-         Remarks:
-         What is drawn depends upon the state of the game.
-         */
-
+         //Summary: Draws the current state of the game to the screen.
+         //Remarks: What is drawn depends upon the state of the game.
         public static void DrawScreen()
         {
             UtilityFunctions.DrawBackground();
@@ -413,18 +343,14 @@ namespace BattleShips
             }
 
             UtilityFunctions.DrawAnimations();
-
             SwinGame.RefreshScreen();
         }
 
         /*
-         Summary:
-         Move the game to a new state. The current state is maintained
-         so that it can be returned to.
-         
-         State: the new game state
-         */
-
+          Summary: Move the game to a new state. The current state is maintained
+          so that it can be returned to.
+          State: the new game state
+        */
         public static void AddNewState(GameState state)
         {
             _state.Push(state);
@@ -432,39 +358,28 @@ namespace BattleShips
         }
 
         /*
-         Summary:
-         End the current state and add in the new state.
-         
-         newState: the new state of the game
-         */
-
+          Summary: End the current state and add in the new state.
+          newState: the new state of the game
+        */
         public static void SwitchState(GameState newState)
         {
             EndCurrentState();
             AddNewState(newState);
         }
 
-        /*
-         Summary
-         Ends the current state, returning to the prior state
-         */
-
+        // Summary: Ends the current state, returning to the prior state
         public static void EndCurrentState()
         {
             _state.Pop();
         }
 
         /*
-         Summary:
-         Sets the difficulty for the next level of the game.
-         
-         setting:
-         the new difficulty level
-         */
+         Summary: Sets the difficulty for the next level of the game.
+          setting: the new difficulty level
+        */
         public static void SetDifficulty(AIOption setting)
         {
             _aiSetting = setting;
         }
-
     }
 }
