@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Cs Code\DeploymentController.cs" />
+    <Compile Include="src\Cs Code\DiscoveryController.cs" />
     <Compile Include="src\Cs Code\EndingGameController.cs" />
     <Compile Include="src\Cs Code\GameController.cs" />
     <Compile Include="src\Cs Code\GameLogic.cs" />
@@ -54,6 +55,8 @@
     <Compile Include="src\Cs Code\GameState.cs" />
     <Compile Include="src\Cs Code\HighScoreController.cs" />
     <Compile Include="src\Cs Code\MenuController.cs" />
+    <Compile Include="src\Cs Code\Model\AIEasyPlayer.cs" />
+    <Compile Include="src\Cs Code\Model\AIHardPlayer.cs" />
     <Compile Include="src\Cs Code\Model\AIMediumPlayer.cs" />
     <Compile Include="src\Cs Code\Model\AIOption.cs" />
     <Compile Include="src\Cs Code\Model\AIPlayer.cs" />
