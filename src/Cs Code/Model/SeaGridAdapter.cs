@@ -40,6 +40,31 @@ namespace BattleShips
             }
         }
 
+        #region "ISeaGrid Members"
+
+        /*
+          Summary: Changes the discovery grid. Where there is a ship we will sea water
+          Parameter: x - tile x coordinate
+          Parameter: y - tile y coordinate
+          Returns : a tile, either what it actually is, or if it was a ship then return a sea tile</returns>
+        */
+        public TileView this[int x, int y]
+        {
+            get
+            {
+                TileView result = _myGrid[x, y];
+
+                if (result == TileView.Ship)
+                {
+                    return TileView.Sea;
+                }
+                else
+                {
+                    return result;
+                }
+            }
+        }
+
         // Summary: Indicates that the grid has been changed
         public event EventHandler Changed;
 
@@ -65,7 +90,7 @@ namespace BattleShips
         {
             return _myGrid.HitTile(row, col);
         }
-        //#endregion
+        #endregion
 
     }
 }

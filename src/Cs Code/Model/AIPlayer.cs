@@ -1,10 +1,5 @@
 /*
-<<<<<<< HEAD
-    Summary:
-    The AIPlayer is a type of player. It can randomly deploy ships, it also has the
-=======
     Summary: The AIPlayer is a type of player. It can randomly deploy ships, it also has the
->>>>>>> origin/willConversion
     functionality to generate coordinates and shoot at tiles
 */
 
@@ -32,11 +27,7 @@ namespace BattleShips
 
             // Summary: The row of the shot
             // Value: The row of the shot
-<<<<<<< HEAD
-            //Returns: The row of the shot
-=======
             // Returns: The row of the shot
->>>>>>> origin/willConversion
             public int Row
             {
                 get { return _row; }
@@ -45,11 +36,7 @@ namespace BattleShips
 
             // Summary: The column of the shot
             // Value: The column of the shot
-<<<<<<< HEAD
-            //Returns: The column of the shot
-=======
             // Returns: The column of the shot
->>>>>>> origin/willConversion
             public int Column
             {
                 get { return _column; }
@@ -65,38 +52,24 @@ namespace BattleShips
                 _row = row;
             }
 
-<<<<<<< HEAD
-            // Summary: Check if two locations are equal
-            // Parameter: this - location 1
-            // Parameter: other - location 2
-            // Returns: true if location 1 and location 2 are at the same spot
-=======
             /*
               Summary: Check if two locations are equal
               Parameter: this - location 1
               Parameter: other - location 2
               Returns: true if location 1 and location 2 are at the same spot
             */
->>>>>>> origin/willConversion
             public static bool operator ==(Location @this, Location other)
             {
                 return !ReferenceEquals(@this, null) && !ReferenceEquals(other, null) && @this.Row == other.Row && @this.Column == other.Column;
                 //return @this != null && other != null && @this.Row == other.Row && @this.Column == other.Column;
             }
 
-<<<<<<< HEAD
-            // Summary: Check if two locations are not equal
-            // Parameter: this - location 1
-            // Parameter: other - location 2
-            // Retuns: true if location 1 and location 2 are not at the same spot
-=======
             /*
               Summary: Check if two locations are not equal
               Parameter: this - location 1
               Parameter: other - location 2
               Retuns: true if location 1 and location 2 are not at the same spot
             */
->>>>>>> origin/willConversion
             public static bool operator !=(Location @this, Location other)
             {
                 return ReferenceEquals(@this, null) || ReferenceEquals(other, null) || @this.Row != other.Row || @this.Column != other.Column;
@@ -117,17 +90,10 @@ namespace BattleShips
         /*
           Summary: The last shot had the following result. Child classes can use this
           to prepare for the next shot.
-<<<<<<< HEAD
-        */
-        // Parameter: result - The result of the shot
-        // Parameter: row - the row shot
-        // Parameter: col - the column shot
-=======
           Parameter: result - The result of the shot
           Parameter: row - the row shot
           Parameter: col - the column shot
         */
->>>>>>> origin/willConversion
         protected abstract void ProcessShot(int row, int col, AttackResult result);
 
         // Summary: The AI takes its attacks until its go is over.
