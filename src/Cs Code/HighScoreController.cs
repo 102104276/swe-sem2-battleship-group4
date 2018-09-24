@@ -180,9 +180,9 @@ namespace BattleShips
                 }
 
                 //Slides the new score into the correct position
-                _Scores.RemoveAt(_Scores.Count - 1);
-                _Scores.Add(s);
-                _Scores.Sort();
+                _scores.RemoveAt(_scores.Count - 1);
+                _scores.Add(s);
+                _scores.Sort();
                 HighScoreController.SaveScores();
                 GameController.EndCurrentState();
             }

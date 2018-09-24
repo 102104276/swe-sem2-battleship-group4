@@ -90,7 +90,7 @@ namespace BattleShips
         private const int SETUP_MENU = 5;
 		private const int MAIN_MENU_PLAY_BUTTON = 0;
 		private const int MAIN_MENU_SETUP_BUTTON = 1;
-		private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
+		private const int MAIN_MENU_TOP_scores_BUTTON = 2;
 
 		private const int MAIN_MENU_QUIT_BUTTON = 3;
 		private const int SETUP_MENU_EASY_BUTTON = 0;
@@ -319,7 +319,7 @@ namespace BattleShips
 				case MAIN_MENU_SETUP_BUTTON:
 					GameController.AddNewState(GameState.AlteringSettings);
 					break;
-				case MAIN_MENU_TOP_SCORES_BUTTON:
+				case MAIN_MENU_TOP_scores_BUTTON:
 					GameController.AddNewState(GameState.ViewingHighScores);
 					break;
 				case MAIN_MENU_QUIT_BUTTON:
