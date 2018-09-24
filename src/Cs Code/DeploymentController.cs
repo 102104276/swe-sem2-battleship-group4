@@ -174,6 +174,64 @@ namespace BattleShips
             }
         }
 
+        private static void ShipOverlay()
+        {
+            Point2D mouse = default(Point2D);
+
+            mouse = SwinGame.MousePosition();
+
+            string shipName = null;
+            int shipHeight = 0;
+            int shipWidth = 0;
+
+            int rowTop = 0;
+            int colLeft = 0;
+
+            float mousex = Input.MouseX();
+            float mousey = Input.MouseY();
+            double x, y;
+
+            if (mousex > 349 && mousey > 122 && mousex < (349 + 42 * 10))
+            {
+                y = Convert.ToInt32(Math.Floor((mouse.Y - UtilityFunctions.FIELD_TOP) / (UtilityFunctions.CELL_HEIGHT + UtilityFunctions.CELL_GAP)));
+                x = Convert.ToInt32(Math.Floor((mouse.X - UtilityFunctions.FIELD_LEFT) / (UtilityFunctions.CELL_WIDTH + UtilityFunctions.CELL_GAP)));
+
+
+                rowTop = 122 + (2 + 40) * Convert.ToInt32(y) + 3;
+                colLeft = 349 + (2 + 40) * Convert.ToInt32(x) + 3;
+
+
+
+                //40 is the set cell width and height
+
+                if (_currentDirection == Direction.LeftRight)
+                {
+                    shipName = "ShipLR" + (int)_selectedShip;
+                    shipHeight = 40 - (3 * 2);
+                    shipWidth = (40 + 2) * (int)_selectedShip - (3 * 2) - 2;
+                }
+                else
+                {
+                    shipName = "ShipUD" + (int)_selectedShip;
+                    shipHeight = (40 + 2) * (int)_selectedShip - (3 * 2) - 2;
+                    shipWidth = 40 - (3 * 2);
+                }
+
+                //if in the area try to deploy
+                try
+                {
+                    SwinGame.DrawBitmap(GameResources.GameImage(shipName + "_hover"), colLeft, rowTop);
+                }
+                catch (Exception ex)
+                {
+                    //UtilityFunctions.PlaySFX("Error");
+                    UtilityFunctions.Message = ex.Message;
+                    Console.WriteLine(colLeft + " | " + rowTop);
+                }
+            }
+               
+        }
+
         // Summary: Draws the deployment screen showing the field and the ships that the player can deploy.
         public static void DrawDeployment()
         {
@@ -241,6 +299,10 @@ namespace BattleShips
             {
                 UtilityFunctions.DrawHelp(new string[] { "Up Arrow: chagen direction of the ships to vertical", "Right Arrow: change direction of ships to horizontal", "Random button: to change position of ships randomly", "Play button : start the game", "Esc key : to esc this mode" });
             }
+
+            //hover placement
+            DeploymentController.ShipOverlay();
+
         }
 
         // Summary: Gets the ship that the mouse is currently over in the selection panel.

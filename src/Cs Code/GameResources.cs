@@ -43,7 +43,10 @@ namespace BattleShips
 			for (i = 1; i <= 5; i++) {
 				NewImage("ShipLR" + i, "ship_deploy_horiz_" + i + ".png");
 				NewImage("ShipUD" + i, "ship_deploy_vert_" + i + ".png");
-			}
+                //loads hover
+                NewImage("ShipLR" + i + "_hover", "ship_deploy_horiz_" + i + "_hover.png");
+                NewImage("ShipUD" + i + "_hover", "ship_deploy_vert_" + i + "_hover.png");
+            }
 
 			// Explosions
 			NewImage("Explosion", "explosion.png");
