@@ -174,16 +174,16 @@ namespace BattleShips
 
                 s.Name = SwinGame.TextReadAsASCII();
 
-                if (s.Name.Length < 3)
+                if (s.Name.Length <= 3)
                 {
                     s.Name = s.Name + new string(Convert.ToChar(" "), 3 - s.Name.Length);
                 }
 
                 //Slides the new score into the correct position
-                _scores.RemoveAt(_scores.Count - 1);
-                _scores.Add(s);
-                _scores.Sort();
-
+                _Scores.RemoveAt(_Scores.Count - 1);
+                _Scores.Add(s);
+                _Scores.Sort();
+                HighScoreController.SaveScores();
                 GameController.EndCurrentState();
             }
         }

@@ -54,6 +54,9 @@ namespace BattleShips
 
             //back button
             NewImage("Back", "back_button.png");
+
+            //help 
+            NewImage("Help", "help.png");
 		}
 
 		// Loads all sounds

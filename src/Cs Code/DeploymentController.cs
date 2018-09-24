@@ -14,9 +14,10 @@ namespace BattleShips
         private const int SHIPS_TOP = 98;
         private const int SHIPS_LEFT = 20;
         private const int SHIPS_HEIGHT = 90;
-
         private const int SHIPS_WIDTH = 300;
         private const int TOP_BUTTONS_TOP = 72;
+
+        private static bool help_screen = false;
 
         private const int TOP_BUTTONS_HEIGHT = 46;
         private const int PLAY_BUTTON_LEFT = 693;
@@ -26,6 +27,8 @@ namespace BattleShips
 
         private const int LEFT_RIGHT_BUTTON_LEFT = 350;
         private const int RANDOM_BUTTON_LEFT = 547;
+
+        private const int HELP_BUTTON_LEFT = 485;
 
         private const int RANDOM_BUTTON_WIDTH = 51;
 
@@ -90,27 +93,44 @@ namespace BattleShips
                     DoDeployClick();
                 }
 
-                if (GameController.HumanPlayer.ReadyToDeploy & UtilityFunctions.IsMouseInRectangle(PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
-                {
-                    GameController.EndDeployment();
+                if (help_screen == false)
+                    {
+                    if (GameController.HumanPlayer.ReadyToDeploy & UtilityFunctions.IsMouseInRectangle(PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
+                    {
+                        GameController.EndDeployment();
+                    }
+                    else if (UtilityFunctions.IsMouseInRectangle(UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT))
+                    {
+                        _currentDirection = Direction.UpDown;
+                    }
+                    else if (UtilityFunctions.IsMouseInRectangle(LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT))
+                    {
+                        _currentDirection = Direction.LeftRight;
+                    }
+                    else if (UtilityFunctions.IsMouseInRectangle(RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP, RANDOM_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
+                    {
+                        GameController.HumanPlayer.RandomizeDeployment();
+                    }
+                    else if (UtilityFunctions.IsMouseInRectangle(CLEAR_BUTTON_LEFT, TOP_BUTTONS_TOP, CLEAR_BUTTON_WIDTH, CLEAR_BUTTON_HEIGHT))
+                    {
+                        //clears board
+                        GameController.HumanPlayer.PlayerGrid.ClearBoard();
+                    }
+                    else if (UtilityFunctions.IsMouseInRectangle(HELP_BUTTON_LEFT, TOP_BUTTONS_TOP, CLEAR_BUTTON_WIDTH, CLEAR_BUTTON_HEIGHT))
+                    {
+                        if (help_screen)
+                        {
+                            help_screen = false;
+                        }
+                        else
+                        {
+                            help_screen = true;
+                        }
+                    }
                 }
-                else if (UtilityFunctions.IsMouseInRectangle(UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT))
+                else
                 {
-                    _currentDirection = Direction.UpDown;
-                }
-                else if (UtilityFunctions.IsMouseInRectangle(LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT))
-                {
-                    _currentDirection = Direction.LeftRight;
-                }
-                else if (UtilityFunctions.IsMouseInRectangle(RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP, RANDOM_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
-                {
-                    GameController.HumanPlayer.RandomizeDeployment();
-                }
-                else if (UtilityFunctions.IsMouseInRectangle(CLEAR_BUTTON_LEFT, TOP_BUTTONS_TOP, CLEAR_BUTTON_WIDTH, CLEAR_BUTTON_HEIGHT))
-                {
-                    //clears board
-                    GameController.HumanPlayer.PlayerGrid.ClearBoard();
-
+                    help_screen = false;
                 }
             }
         }
@@ -157,6 +177,7 @@ namespace BattleShips
         // Summary: Draws the deployment screen showing the field and the ships that the player can deploy.
         public static void DrawDeployment()
         {
+
             UtilityFunctions.DrawField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer, true);
 
             //Draw the Left/Right and Up/Down buttons
@@ -176,7 +197,13 @@ namespace BattleShips
             //displays current game difficulty
             SwinGame.DrawText("Difficulty: " + GameController.AIDifficulty, Color.White, 530, 570);
 
+            //clear button
             SwinGame.DrawBitmap(GameResources.GameImage("Clear"), 620, TOP_BUTTONS_TOP);
+
+
+            //draw help button
+            SwinGame.DrawBitmap(GameResources.GameImage("Help"), HELP_BUTTON_LEFT, TOP_BUTTONS_TOP);
+            
 
             //DrawShips
             foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
@@ -197,6 +224,7 @@ namespace BattleShips
                     //SwinGame.DrawText(sn.ToString(), Color.Black, GameFont("Courier"), SHIPS_LEFT + TEXT_OFFSET, SHIPS_TOP + i * SHIPS_HEIGHT)
 
                 }
+
             }
 
             if (GameController.HumanPlayer.ReadyToDeploy)
@@ -208,6 +236,11 @@ namespace BattleShips
 
             SwinGame.DrawBitmap(GameResources.GameImage("RandomButton"), RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP);
             UtilityFunctions.DrawMessage();
+
+            if (help_screen)
+            {
+                UtilityFunctions.DrawHelp(new string[] { "Up Arrow: chagen direction of the ships to vertical", "Right Arrow: change direction of ships to horizontal", "Random button: to change position of ships randomly", "Play button : start the game", "Esc key : to esc this mode" });
+            }
         }
 
         // Summary: Gets the ship that the mouse is currently over in the selection panel.
