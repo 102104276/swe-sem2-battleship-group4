@@ -98,10 +98,10 @@ namespace BattleShips
           Parameter: showShips - indicates if the ships should be shown.
         */
 
-        public static void DrawField(ISeaGrid grid, Player thePlayer, bool showShips)
+        public static void DrawField(ISeaGrid grid, Player thePlayer, bool showShips, bool showonlydestroyed)
         {
             DrawCustomField(grid, thePlayer, false, showShips, FIELD_LEFT, FIELD_TOP, FIELD_WIDTH, FIELD_HEIGHT, CELL_WIDTH, CELL_HEIGHT,
-            CELL_GAP);
+            CELL_GAP, showonlydestroyed);
         }
 
         /*
@@ -120,8 +120,7 @@ namespace BattleShips
             const int SMALL_FIELD_CELL_HEIGHT = 13;
             const int SMALL_FIELD_CELL_GAP = 4;
 
-            DrawCustomField(grid, thePlayer, true, true, SMALL_FIELD_LEFT, SMALL_FIELD_TOP, SMALL_FIELD_WIDTH, SMALL_FIELD_HEIGHT, SMALL_FIELD_CELL_WIDTH, SMALL_FIELD_CELL_HEIGHT,
-            SMALL_FIELD_CELL_GAP);
+            DrawCustomField(grid, thePlayer, true, true, SMALL_FIELD_LEFT, SMALL_FIELD_TOP, SMALL_FIELD_WIDTH, SMALL_FIELD_HEIGHT, SMALL_FIELD_CELL_WIDTH, SMALL_FIELD_CELL_HEIGHT, SMALL_FIELD_CELL_GAP, false);
         }
 
         /*
@@ -139,8 +138,7 @@ namespace BattleShips
           Parameter: cellGap - the gap between the cells
         */
 
-        private static void DrawCustomField(ISeaGrid grid, Player thePlayer, bool small, bool showShips, int left, int top, int width, int height, int cellWidth, int cellHeight,
-        int cellGap)
+        private static void DrawCustomField(ISeaGrid grid, Player thePlayer, bool small, bool showShips, int left, int top, int width, int height, int cellWidth, int cellHeight, int cellGap, bool showonlydestroyed)
         {
             //SwinGame.FillRectangle(Color.Blue, left, top, width, height)
 
@@ -204,6 +202,12 @@ namespace BattleShips
             {
                 return;
             }
+            UtilityFunctions.DrawShips(grid, thePlayer, small, showShips, rowTop, colLeft, left, top, width, height, cellWidth, cellHeight, cellGap, showonlydestroyed);
+
+        }
+
+        public static void DrawShips(ISeaGrid grid, Player thePlayer, bool small, bool showShips, int rowTop, int colLeft, int left, int top, int width, int height, int cellWidth, int cellHeight, int cellGap, bool showonlydestroyed)
+        {
 
             int shipHeight = 0;
             int shipWidth = 0;
@@ -231,15 +235,35 @@ namespace BattleShips
                     shipWidth = cellWidth - (SHIP_GAP * 2);
                 }
 
-                if (!small)
+                if (showonlydestroyed)
                 {
-                    SwinGame.DrawBitmap(GameResources.GameImage(shipName), colLeft, rowTop);
+                    if (s.IsDestroyed)
+                    {
+                        if (!small)
+                        {
+                            SwinGame.DrawBitmap(GameResources.GameImage(shipName), colLeft, rowTop);
+                        }
+                        else
+                        {
+                            SwinGame.FillRectangle(SHIP_FILL_COLOR, colLeft, rowTop, shipWidth, shipHeight);
+                            SwinGame.DrawRectangle(SHIP_OUTLINE_COLOR, colLeft, rowTop, shipWidth, shipHeight);
+                        }
+
+                    }
                 }
                 else
                 {
-                    SwinGame.FillRectangle(SHIP_FILL_COLOR, colLeft, rowTop, shipWidth, shipHeight);
-                    SwinGame.DrawRectangle(SHIP_OUTLINE_COLOR, colLeft, rowTop, shipWidth, shipHeight);
+                    if (!small)
+                    {
+                        SwinGame.DrawBitmap(GameResources.GameImage(shipName), colLeft, rowTop);
+                    }
+                    else
+                    {
+                        SwinGame.FillRectangle(SHIP_FILL_COLOR, colLeft, rowTop, shipWidth, shipHeight);
+                        SwinGame.DrawRectangle(SHIP_OUTLINE_COLOR, colLeft, rowTop, shipWidth, shipHeight);
+                    }
                 }
+
             }
         }
 

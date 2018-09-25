@@ -29,7 +29,6 @@ namespace BattleShips
 		public BattleShipsGame Game
 		{
 			get { return _game; }
-			set { _game = value; }
 		}
 
 		// Summary: Sets the grid of the enemy player
@@ -57,6 +56,14 @@ namespace BattleShips
 			RandomizeDeployment();
 		}
 
+        public BattleShipsGame PlayerController
+        {
+            get
+            {
+                return _game;
+            }
+        }
+
 		// Summary: The EnemyGrid is a ISeaGrid because you shouldn't be allowed to see the enemies ships
 		// Value: The grid to use.
 		// Returns: The enemy's grid.
@@ -71,13 +78,47 @@ namespace BattleShips
 		public SeaGrid PlayerGrid
 		{
 			get { return _playerGrid; }
+            set { _playerGrid = value; }
 		}
+
+        public Dictionary<ShipName, Ship> ships
+        {
+            set
+            {
+                _ships = value;
+            }
+            get
+            {
+                return _ships;
+            }
+        }
 
 		// Returns: true if all ships are deployed
 		public bool ReadyToDeploy
 		{
 			get { return _playerGrid.AllDeployed; }
 		}
+
+        public Dictionary<ShipName,Ship> DestroyedShips
+        {
+            get
+            {
+                Dictionary<ShipName, Ship> _ship_destroyed = new Dictionary<ShipName, Ship>();
+
+
+                foreach(Ship ship in _ships.Values)
+                {
+                    if (ship.IsDestroyed)
+                    {
+                        ShipName name = (ShipName)ship.Size;
+                        _ship_destroyed.Add(name, ship);
+                    }
+                }
+                return _ship_destroyed;
+                
+            }
+
+        }
 
 		// Summary: Checks if all ships on your grid are destroyed!
 		// Returns: True is all ships on the player grid are destroyed.
