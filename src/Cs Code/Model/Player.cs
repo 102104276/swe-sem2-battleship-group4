@@ -187,7 +187,6 @@ namespace BattleShips
 		// Returns: The result of the attack
 		internal AttackResult Shoot(int row, int col)
 		{
-			_shots += 1;
 			AttackResult result = default(AttackResult);
 			result = EnemyGrid.HitTile(row, col);
 
@@ -196,10 +195,12 @@ namespace BattleShips
 				case ResultOfAttack.Destroyed:
 				case ResultOfAttack.Hit:
 					_hits += 1;
-					break;
+                    _shots += 1;
+                    break;
 				case ResultOfAttack.Miss:
 					_misses += 1;
-					break;
+                    _shots += 1;
+                    break;
 			}
 
 			return result;

@@ -300,6 +300,7 @@ namespace BattleShips
         public static void AddSplash(int row, int col)
         {
             AddAnimation(row, col, "Splash");
+
         }
 
 

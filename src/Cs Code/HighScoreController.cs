@@ -194,7 +194,14 @@ namespace BattleShips
                 int x = 0;
                 x = SCORES_LEFT + SwinGame.TextWidth(GameResources.GameFont("Courier"), "Name: ");
 
-                SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameResources.GameFont("Courier"), x, ENTRY_TOP);
+                //Creates a rectangle large enough to display the entire high score
+                Rectangle r = new Rectangle();
+                r.X = x;
+                r.Y = ENTRY_TOP;
+                r.Height = 50;
+                r.Width = 250;
+
+                SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameResources.GameFont("Courier"), r);
 
                 //Read the text from the user
                 while (SwinGame.ReadingText())
