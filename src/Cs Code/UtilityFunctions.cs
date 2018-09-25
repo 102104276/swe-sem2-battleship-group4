@@ -241,7 +241,7 @@ namespace BattleShips
                     {
                         if (!small)
                         {
-                            SwinGame.DrawBitmap(GameResources.GameImage(shipName), colLeft, rowTop);
+                            SwinGame.DrawBitmap(GameResources.GameImage(shipName + "_hover"), colLeft, rowTop);
                         }
                         else
                         {

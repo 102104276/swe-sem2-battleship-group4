@@ -18,7 +18,7 @@ namespace BattleShips
     {
 
         private const int _WIDTH = 10;
-        private bool alldeployed = false;
+
         private const int _HEIGHT = 10;
         private Tile[,] _gameTiles;
         private Dictionary<ShipName, Ship> _ships;
@@ -122,7 +122,7 @@ namespace BattleShips
                 ship.Value.Remove();
             }
         }
-        
+
         /*
           Summary: AddShip add a ship to the SeaGrid
           Parameter: row - row coordinate
@@ -213,7 +213,7 @@ namespace BattleShips
                     _shipsKilled += 1;
                     return new AttackResult(ResultOfAttack.Destroyed, _gameTiles[row, col].Ship, "destroyed the enemy's", row, col);
                 }
-                
+
                 //else hit but not destroyed
                 return new AttackResult(ResultOfAttack.Hit, "hit something!", row, col);
             }
