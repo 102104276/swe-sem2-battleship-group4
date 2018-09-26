@@ -7,13 +7,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using SwinGameSDK;
-
 namespace BattleShips
 {
     static class HighScoreController
     {
         private const int NAME_WIDTH = 3;
-
         private const int SCORES_LEFT = 490;
         /* 
            Summary: The score structure is used to keep the name and
@@ -24,6 +22,7 @@ namespace BattleShips
             public string Name;
 
             public int Value;
+
             // Summary: Allows scores to be compared to facilitate sorting
             // obj: the object to compare to
             // Returns: a value that indicates the sort order
@@ -41,7 +40,6 @@ namespace BattleShips
                 }
             }
         }
-
 
         private static List<Score> _scores = new List<Score>();
         // Summary: Loads the scores from the highscores text file.
@@ -72,6 +70,7 @@ namespace BattleShips
 
                 s.Name = line.Substring(0, NAME_WIDTH);
                 s.Value = Convert.ToInt32(line.Substring(NAME_WIDTH));
+
                 _scores.Add(s);
             }
             input.Close();
@@ -175,7 +174,7 @@ namespace BattleShips
 
                 s.Name = SwinGame.TextReadAsASCII();
 
-                if (s.Name.Length < 3)
+                if (s.Name.Length <= 3)
                 {
                     s.Name = s.Name + new string(Convert.ToChar(" "), 3 - s.Name.Length);
                 }
@@ -184,7 +183,7 @@ namespace BattleShips
                 _scores.RemoveAt(_scores.Count - 1);
                 _scores.Add(s);
                 _scores.Sort();
-
+                HighScoreController.SaveScores();
                 GameController.EndCurrentState();
             }
         }

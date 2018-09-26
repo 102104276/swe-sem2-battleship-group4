@@ -10,6 +10,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using SwinGameSDK;
 
+/*
+Summary: This includes a number of utility methods for
+drawing and interacting with the Mouse.
+*/
+
 namespace BattleShips
 {
     static class UtilityFunctions
@@ -252,6 +257,23 @@ namespace BattleShips
             set { _message = value; }
         }
 
+
+        public static void DrawHelp(string[] text)
+        {
+            int i;
+            Graphics.DrawRectangle(Color.White, 50, 100, 700, 400);
+            Graphics.FillRectangle(Color.Blue, 50, 100, 700, 400);
+            i = 0;
+            foreach (string phrase in text)
+            {
+                Text.DrawText(phrase, Color.White, 70, (120 + (i * 20)));
+                i++;
+            }
+
+
+            
+        }
+
         //Summary: Draws the background for the current state of the game
 
         public static void DrawMessage()
@@ -319,12 +341,14 @@ namespace BattleShips
             s.Y = FIELD_TOP + row * (CELL_HEIGHT + CELL_GAP);
 
             s.StartAnimation("splash");
+
             _animations.Add(s);
         }
 
         public static void UpdateAnimations()
         {
             List<Sprite> ended = new List<Sprite>();
+
             foreach (Sprite s in _animations)
             {
                 SwinGame.UpdateSprite(s);
@@ -343,6 +367,7 @@ namespace BattleShips
 
         public static void DrawAnimations()
         {
+
             foreach (Sprite s in _animations)
             {
                 SwinGame.DrawSprite(s);
@@ -359,9 +384,48 @@ namespace BattleShips
             }
         }
 
-        public static void PlayMuisc()
+        public static void PlayMusic()
         {
-            SwinGame.PlayMusic(GameResources.GameMusic("Background"));
+            Random r = new Random();
+            int track;
+            track = r.Next(0, 5);
+
+            if(!SwinGame.MusicPlaying())
+            {
+                switch (track)
+                {
+                    case 1:
+                        SwinGame.PlayMusic(GameResources.GameMusic("Background"), 1);
+                        break;
+                    case 2:
+                        SwinGame.PlayMusic(GameResources.GameMusic("Background2"), 1);
+                        break;
+                    case 3:
+                        SwinGame.PlayMusic(GameResources.GameMusic("Background3"), 1);
+                        break;
+                    case 4:
+                        SwinGame.PlayMusic(GameResources.GameMusic("Background4"), 1);
+                        break;
+                    default:
+                        SwinGame.PlayMusic(GameResources.GameMusic("Background"), 1);
+                        break;    
+                }
+            }
+            else
+            {
+                if(track < 5)
+                {
+                    track = track + 1;
+                }
+                else if(track > 0)
+                {
+                    track = track - 1;
+                }
+                else
+                {
+                    track = r.Next(0, 5);
+                }
+            }
         }
 
         public static void StopMusic()

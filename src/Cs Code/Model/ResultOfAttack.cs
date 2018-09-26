@@ -2,12 +2,10 @@
   Summary:
   The result of an attack.
 */
-
 namespace BattleShips
 {
     public enum ResultOfAttack
     {
-
         // Summary: The player hit something
         Hit,
 

@@ -119,6 +119,7 @@ namespace BattleShips
         }
 
         /*
+
           Summary: Listens to the game grids for any changes and redraws the screen
           when the grids change
           sender: the grid that changed
@@ -129,8 +130,7 @@ namespace BattleShips
             DrawScreen();
             SwinGame.RefreshScreen();
         }
-
-        
+      
         // Summary: Plays the hit sound effect and potentially draws the animation of a succesful hit
         private static void PlayHitSequence(int row, int column, bool showAnimation)
         {
@@ -341,6 +341,7 @@ namespace BattleShips
                     HighScoreController.DrawHighScores();
                     break;
             }
+
             UtilityFunctions.DrawAnimations();
             SwinGame.RefreshScreen();
         }

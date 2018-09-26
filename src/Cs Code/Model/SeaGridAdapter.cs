@@ -1,7 +1,9 @@
+
 /*
   Summary: The SeaGridAdapter allows for the change in a sea grid view. Whenever a ship is
   presented it changes the view into a sea tile instead of a ship tile.
 */
+
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
@@ -12,8 +14,6 @@ namespace BattleShips
 {
     public class SeaGridAdapter : ISeaGrid
     {
-
-
         private SeaGrid _myGrid;
 
         /*
@@ -31,6 +31,7 @@ namespace BattleShips
           Parameter: sender - the object that caused the change
           Parameter: e - what needs to be redrawn
         */
+
         private void MyGrid_Changed(object sender, EventArgs e)
         {
             if (Changed != null)
@@ -38,6 +39,7 @@ namespace BattleShips
                 Changed(this, e);
             }
         }
+
         #region "ISeaGrid Members"
 
         /*
@@ -89,5 +91,6 @@ namespace BattleShips
             return _myGrid.HitTile(row, col);
         }
         #endregion
+
     }
 }

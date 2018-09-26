@@ -41,6 +41,7 @@ namespace BattleShips
             {
                 //check which state the AI is in and uppon that choose which coordinate generation
                 //method will be used.
+
                 switch (_currentState)
                 {
                     case AIStates.Searching:
@@ -75,7 +76,6 @@ namespace BattleShips
             if (result.Value == ResultOfAttack.Hit)
             {
                 _currentState = AIStates.Searching;
-
             }
             else if (result.Value == ResultOfAttack.ShotAlready)
             {

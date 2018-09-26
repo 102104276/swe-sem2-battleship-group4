@@ -10,7 +10,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-
 namespace BattleShips
 {
     public class Ship
@@ -39,6 +38,7 @@ namespace BattleShips
             }
         }
 
+
         // Summary: The number of cells that this ship occupies.
         // Value: The number of hits the ship can take
         // Returns: The number of hits the ship can take
@@ -46,6 +46,7 @@ namespace BattleShips
         {
             get { return _sizeOfShip; }
         }
+
 
         // Summary: The number of hits that the ship has taken.
         // Value: The number of hits the ship has taken.
@@ -55,6 +56,7 @@ namespace BattleShips
         {
             get { return _hitsTaken; }
         }
+
 
         // Summary: The row location of the ship
         // Value: The topmost location of the ship

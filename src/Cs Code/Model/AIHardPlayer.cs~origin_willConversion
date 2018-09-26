@@ -1,6 +1,5 @@
 /*
-    Summary:
-    AIHardPlayer is a type of player. This AI will know directions of ships
+    Summary: AIHardPlayer is a type of player. This AI will know directions of ships
     when it has found 2 ship tiles and will try to destroy that ship. If that ship
     is not destroyed it will shoot the other way. Ship still not destroyed, then
     the AI knows it has hit multiple ships. Then will try to destoy all around tiles
@@ -61,8 +60,7 @@ namespace BattleShips
         }
 
        /*
-           Summary:
-           Private enumarator for AI states. currently there are two states,
+           Summary: Private enumarator for AI states. currently there are two states,
            the AI can be searching for a ship, or if it has found a ship it will
            target the same ship
        */
@@ -140,13 +138,12 @@ namespace BattleShips
         }
 
         /*
-            Summary:
-            ProcessShot is able to process each shot that is made and call the right methods belonging
-            to that shot. For example, if its a miss = do nothing, if it's a hit = process that hit location
+          Summary: ProcessShot is able to process each shot that is made and call the right methods belonging
+          to that shot. For example, if its a miss = do nothing, if it's a hit = process that hit location
+          Parameter: row - the row that was shot at
+          Parameter: col - the column that was shot at
+          Parameter: result - the result from that hit
         */
-        // Parameter: row - the row that was shot at
-        // Parameter: col - the column that was shot at
-        // Parameter: result - the result from that hit
         protected override void ProcessShot(int row, int col, AttackResult result)
         {
             switch (result.Value)
@@ -169,13 +166,12 @@ namespace BattleShips
         }
 
         /*
-          Summary:
-          ProcessDetroy is able to process the destroyed ships targets and remove _lastHit targets.
+          Summary: ProcessDetroy is able to process the destroyed ships targets and remove _lastHit targets.
           It will also call RemoveShotsAround to remove targets that it was going to shoot at
+          Parameter: row - the row that was shot at and destroyed
+          Parameter: col - the row that was shot at and destroyed
+          Parameter: ship - the row that was shot at and destroyed
         */
-        // Parameter: row - the row that was shot at and destroyed
-        // Parameter: col - the row that was shot at and destroyed
-        // Parameter: ship - the row that was shot at and destroyed
         private void ProcessDestroy(int row, int col, Ship ship)
         {
             bool foundOriginal = false;
@@ -218,19 +214,17 @@ namespace BattleShips
                         break; // TODO: might not be correct. Was : Exit For
                     }
                 }
-
                 RemoveShotsAround(current.ShotAt);
             }
         }
 
         /*
-            Summary:
-            RemoveShotsAround will remove targets that belong to the destroyed ship by checking if 
-            the source of the targets belong to the destroyed ship. If they don't put them on a new stack.
-            Then clear the targets stack and move all the targets that still need to be shot at back 
-            onto the targets stack
+          Summary: RemoveShotsAround will remove targets that belong to the destroyed ship by checking if 
+          the source of the targets belong to the destroyed ship. If they don't put them on a new stack.
+          Then clear the targets stack and move all the targets that still need to be shot at back 
+          onto the targets stack
+          Parameter: toRemove - Location to Remove
         */
-        // Parameter: toRemove - Location to Remove
         private void RemoveShotsAround(Location toRemove)
         {
             Stack<Target> newStack = new Stack<Target>();
@@ -245,29 +239,28 @@ namespace BattleShips
             }
 
             _targets.Clear();
-            //clear the _Targets stack
+            //clear the _targets stack
 
-            //for all the targets in the newStack, move them back onto the _Targets stack
+            //for all the targets in the newStack, move them back onto the _targets stack
             foreach (Target t in newStack)
             {
                 _targets.Push(t);
             }
 
-            //if the _Targets stack is 0 then change the AI's state back to searching
+            //if the _targets stack is 0 then change the AI's state back to searching
             if (_targets.Count == 0)
                 _currentState = AIStates.Searching;
         }
 
         /*
-          Summary:
-          ProcessHit gets the last hit location coordinates and will ask AddTarget to
+          Summary: ProcessHit gets the last hit location coordinates and will ask AddTarget to
           create targets around that location by calling the method four times each time with
           a new location around the last hit location.
           It will then set the state of the AI and if it's not Searching or targetingShip then 
           start ReOrderTargets.
+          Parameter: row - row of square to process hit on.
+          Parameter: col - coulmn of square to process hit on.
         */
-        // Parameter: row - row of square to process hit on.
-        // Parameter: col - coulmn of square to process hit on.
         private void ProcessHit(int row, int col)
         {
             _lastHit.Add(_currentTarget);
@@ -292,8 +285,7 @@ namespace BattleShips
         }
 
         /* 
-          Summary:
-          ReOrderTargets will optimise the targeting by re-orderin the stack that the targets are in.
+          Summary: ReOrderTargets will optimise the targeting by re-orderin the stack that the targets are in.
           By putting the most important targets at the top they are the ones that will be shot at first.
         */
         private void ReOrderTargets()
@@ -311,16 +303,15 @@ namespace BattleShips
         }
 
         /*
-          Summary:
-          MoveToTopOfStack will re-order the stack by checkin the coordinates of each target
+          Summary: MoveToTopOfStack will re-order the stack by checkin the coordinates of each target
           If they have the right column or row values it will be moved to the _match stack else 
           put it on the _noMatch stack. Then move all the targets from the _noMatch stack back on the 
           _targets stack, these will be at the bottom making them less important. The move all the
           targets from the _match stack on the _targets stack, these will be on the top and will there
           for be shot at first
+          Parameter: row - the row of the optimisation
+          Parameter: column - the column of the optimisation
         */
-        // Parameter: row - the row of the optimisation
-        // Parameter: column - the column of the optimisation
         private void MoveToTopOfStack(int row, int column)
         {
             Stack<Target> _noMatch = new Stack<Target>();

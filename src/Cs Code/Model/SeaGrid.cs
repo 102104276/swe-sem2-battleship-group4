@@ -5,6 +5,7 @@
   mask the position of the ships.
 */
 
+
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
@@ -160,7 +161,6 @@ namespace BattleShips
                     }
 
                     _gameTiles[currentRow, currentCol].Ship = newShip;
-
                     currentCol += dCol;
                     currentRow += dRow;
                 }
@@ -213,7 +213,7 @@ namespace BattleShips
                     _shipsKilled += 1;
                     return new AttackResult(ResultOfAttack.Destroyed, _gameTiles[row, col].Ship, "destroyed the enemy's", row, col);
                 }
-
+                
                 //else hit but not destroyed
                 return new AttackResult(ResultOfAttack.Hit, "hit something!", row, col);
             }

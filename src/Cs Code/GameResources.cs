@@ -43,7 +43,10 @@ namespace BattleShips
 			for (i = 1; i <= 5; i++) {
 				NewImage("ShipLR" + i, "ship_deploy_horiz_" + i + ".png");
 				NewImage("ShipUD" + i, "ship_deploy_vert_" + i + ".png");
-			}
+                //loads hover
+                NewImage("ShipLR" + i + "_hover", "ship_deploy_horiz_" + i + "_hover.png");
+                NewImage("ShipUD" + i + "_hover", "ship_deploy_vert_" + i + "_hover.png");
+            }
 
 			// Explosions
 			NewImage("Explosion", "explosion.png");
@@ -54,6 +57,9 @@ namespace BattleShips
 
             //back button
             NewImage("Back", "back_button.png");
+
+            //help 
+            NewImage("Help", "help.png");
 		}
 
 		// Loads all sounds
@@ -71,8 +77,12 @@ namespace BattleShips
 		// Loads all music files
 		private static void LoadMusic()
 		{
-			NewMusic("Background", "horrordrone.mp3");
-		}
+			NewMusic("Background", "BachAir.ogg");
+            NewMusic("Background2", "CanoninDMajor.ogg");
+            NewMusic("Background3", "FallToLight.ogg");
+            NewMusic("Background4", "SynthTrack.ogg");
+
+        }
 
 		// Summary: Gets a Font Loaded in the Resources
 		// Parameter: font - Name of Font
@@ -292,7 +302,8 @@ namespace BattleShips
 			_sounds.Add(soundName, Audio.LoadSoundEffect(SwinGame.PathToResource(fileName, ResourceKind.SoundResource)));
 		}
 
-		// Summary: Adds a new music file to the music list
+
+		// Summary: Adds a new file to the music list
 		// Parameter: musicName - The name to use for the music file
 		// Parameter: fileName - The file location to search for
 		private static void NewMusic(string musicName, string fileName)

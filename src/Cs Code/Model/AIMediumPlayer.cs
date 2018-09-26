@@ -7,8 +7,8 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 
+using System.Diagnostics;
 
 namespace BattleShips
 {
@@ -24,7 +24,7 @@ namespace BattleShips
             Searching,
             TargetingShip
         }
-
+        
         private AIStates _currentState = AIStates.Searching;
 
         private Stack<Location> _targets = new Stack<Location>();
@@ -45,6 +45,7 @@ namespace BattleShips
             {
                 //check which state the AI is in and uppon that choose which coordinate generation
                 //method will be used.
+
                 switch (_currentState)
                 {
                     case AIStates.Searching:

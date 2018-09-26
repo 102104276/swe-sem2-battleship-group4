@@ -1,3 +1,4 @@
+
 /*
   Summary: Tile knows its location on the grid, if it is a ship and if it has been
   shot before
@@ -99,6 +100,7 @@ namespace BattleShips
             get
             {
                 //if there is no ship in the tile
+
                 if (_ship == null)
                 {
                     //and the tile has been hit

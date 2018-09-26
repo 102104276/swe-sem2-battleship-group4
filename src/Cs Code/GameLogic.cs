@@ -23,14 +23,15 @@ namespace BattleShips
             //Load Resources
             GameResources.LoadResources();
 
-            SwinGame.PlayMusic(GameResources.GameMusic("Background"));
+            //Removed as was making play music method in utility functions obselete
+            //SwinGame.PlayMusic(GameResources.GameMusic("Background"));
             
-
-            //Game Loop
+            //Game Loop - added Play music to loop through different tracks
             do
             {
                 GameController.HandleUserInput();
                 GameController.DrawScreen();
+                UtilityFunctions.PlayMusic();
             } while (!(SwinGame.WindowCloseRequested() == true | GameController.CurrentState == GameState.Quitting));
 
             UtilityFunctions.StopMusic();
@@ -46,7 +47,6 @@ namespace BattleShips
                 System.Console.WriteLine(e.Message);
                 return 1;
             }
-
             return 0;
         }
     }

@@ -1,5 +1,4 @@
 // Summary:  AttackResult gives the result after a shot has been made.
-
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
@@ -26,7 +25,7 @@ namespace BattleShips
 		public Ship Ship {
 			get { return _ship; }
 		}
-
+        
 		// Summary: A textual description of the result.
 		// Value: A textual description of the result.
 		// Returns: A textual description of the result.
@@ -38,6 +37,7 @@ namespace BattleShips
 		public int Row {
 			get { return _row; }
 		}
+
 
 		// Summary: The column where the attack occurred
 		public int Column {
