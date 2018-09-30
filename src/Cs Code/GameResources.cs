@@ -30,7 +30,8 @@ namespace BattleShips
 		{
 			// Backgrounds
 			NewImage("Menu", "main_page.jpg");
-			NewImage("Discovery", "discover.jpg");
+            NewImage("Option", "option_page.jpg");
+            NewImage("Discovery", "discover.jpg");
 			NewImage("Deploy", "deploy.jpg");
 
 			// Deployment
