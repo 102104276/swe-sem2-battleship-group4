@@ -77,8 +77,12 @@ namespace BattleShips
 		// Loads all music files
 		private static void LoadMusic()
 		{
-			NewMusic("Background", "horrordrone.mp3");
-		}
+			NewMusic("Background", "BachAir.ogg");
+            NewMusic("Background2", "CanoninDMajor.ogg");
+            NewMusic("Background3", "FallToLight.ogg");
+            NewMusic("Background4", "SynthTrack.ogg");
+
+        }
 
 		// Summary: Gets a Font Loaded in the Resources
 		// Parameter: font - Name of Font
@@ -299,7 +303,7 @@ namespace BattleShips
 		}
 
 
-		// Summary: Adds a new music file to the music list
+		// Summary: Adds a new file to the music list
 		// Parameter: musicName - The name to use for the music file
 		// Parameter: fileName - The file location to search for
 		private static void NewMusic(string musicName, string fileName)
