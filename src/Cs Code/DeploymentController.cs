@@ -236,7 +236,7 @@ namespace BattleShips
         public static void DrawDeployment()
         {
 
-            UtilityFunctions.DrawField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer, true, false);
+            UtilityFunctions.DrawField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer, true);
 
             //Draw the Left/Right and Up/Down buttons
             if (_currentDirection == Direction.LeftRight)
