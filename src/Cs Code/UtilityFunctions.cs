@@ -408,9 +408,48 @@ namespace BattleShips
             }
         }
 
-        public static void PlayMuisc()
+        public static void PlayMusic()
         {
-            SwinGame.PlayMusic(GameResources.GameMusic("Background"));
+            Random r = new Random();
+            int track;
+            track = r.Next(0, 5);
+
+            if(!SwinGame.MusicPlaying())
+            {
+                switch (track)
+                {
+                    case 1:
+                        SwinGame.PlayMusic(GameResources.GameMusic("Background"), 1);
+                        break;
+                    case 2:
+                        SwinGame.PlayMusic(GameResources.GameMusic("Background2"), 1);
+                        break;
+                    case 3:
+                        SwinGame.PlayMusic(GameResources.GameMusic("Background3"), 1);
+                        break;
+                    case 4:
+                        SwinGame.PlayMusic(GameResources.GameMusic("Background4"), 1);
+                        break;
+                    default:
+                        SwinGame.PlayMusic(GameResources.GameMusic("Background"), 1);
+                        break;    
+                }
+            }
+            else
+            {
+                if(track < 5)
+                {
+                    track = track + 1;
+                }
+                else if(track > 0)
+                {
+                    track = track - 1;
+                }
+                else
+                {
+                    track = r.Next(0, 5);
+                }
+            }
         }
 
         public static void StopMusic()

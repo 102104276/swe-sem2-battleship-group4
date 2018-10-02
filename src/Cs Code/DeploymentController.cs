@@ -43,9 +43,9 @@ namespace BattleShips
         private const int CLEAR_BUTTON_HEIGHT = 46;
         private const int CLEAR_BUTTON_WIDTH = 56;
         private const int CLEAR_BUTTON_LEFT = 620;
-        
+
         // Summary: Handles user input for the Deployment phase of the game.
-        /* 
+        /*
           Remarks: Involves selecting the ships, deloying ships, changing the direction
           of the ships to add, randomising deployment, and then ending deployment
           Isuru: Updated Keycodes
@@ -229,14 +229,14 @@ namespace BattleShips
                     Console.WriteLine(colLeft + " | " + rowTop);
                 }
             }
-               
+
         }
 
         // Summary: Draws the deployment screen showing the field and the ships that the player can deploy.
         public static void DrawDeployment()
         {
 
-            UtilityFunctions.DrawField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer, true, false);
+            UtilityFunctions.DrawField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer, true);
 
             //Draw the Left/Right and Up/Down buttons
             if (_currentDirection == Direction.LeftRight)
@@ -261,7 +261,7 @@ namespace BattleShips
 
             //draw help button
             SwinGame.DrawBitmap(GameResources.GameImage("Help"), HELP_BUTTON_LEFT, TOP_BUTTONS_TOP);
-            
+
 
             //DrawShips
             foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
