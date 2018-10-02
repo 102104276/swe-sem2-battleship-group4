@@ -317,10 +317,12 @@ namespace BattleShips
             switch (GameController.CurrentState)
             {
                 case GameState.ViewingMainMenu:
-                case GameState.ViewingGameMenu:
                 case GameState.AlteringSettings:
                 case GameState.ViewingHighScores:
                     SwinGame.DrawBitmap(GameResources.GameImage("Menu"), 0, 0);
+                    break;
+                case GameState.ViewingGameMenu:
+                    SwinGame.DrawBitmap(GameResources.GameImage("Option"), 0, 0);
                     break;
                 case GameState.Discovering:
                 case GameState.EndingGame:
@@ -345,6 +347,7 @@ namespace BattleShips
         public static void AddSplash(int row, int col)
         {
             AddAnimation(row, col, "Splash");
+
         }
 
 

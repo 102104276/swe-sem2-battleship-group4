@@ -8,6 +8,7 @@ C:\Users\eweng\swe-sem2-battleship-group4\bin\Debug\BattleShips.pdb
 C:\Users\eweng\swe-sem2-battleship-group4\obj\Debug\BattleShips.csproj.CopyComplete
 C:\Users\eweng\swe-sem2-battleship-group4\obj\Debug\BattleShips.exe
 C:\Users\eweng\swe-sem2-battleship-group4\obj\Debug\BattleShips.pdb
+<<<<<<< HEAD
 C:\Users\timke\OneDrive\Documents\dev project\battleships\obj\Debug\BattleShips.csprojAssemblyReference.cache
 C:\Users\timke\OneDrive\Documents\dev project\battleships\obj\Debug\BattleShips.csproj.CoreCompileInputs.cache
 C:\Users\timke\OneDrive\Documents\dev project\battleships\obj\Debug\BattleShips.exe
@@ -17,3 +18,5 @@ C:\Users\timke\OneDrive\Documents\dev project\battleships\bin\Debug\BattleShips.
 C:\Users\timke\OneDrive\Documents\dev project\battleships\bin\Debug\BattleShips.pdb
 C:\Users\timke\OneDrive\Documents\dev project\battleships\bin\Debug\SwinGame.dll
 C:\Users\timke\OneDrive\Documents\dev project\battleships\obj\Debug\BattleShips.csproj.CopyComplete
+=======
+>>>>>>> origin/ewen2-electricboogaloo
