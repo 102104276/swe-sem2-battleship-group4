@@ -179,7 +179,7 @@ namespace BattleShips
                     s.Name = s.Name + new string(Convert.ToChar(" "), 3 - s.Name.Length);
                 }
 
-                //Slides the new score into the correct position
+                //Slides the new score into the correct positionC:\Users\timke\OneDrive\Documents\dev project\battleships\src\Cs Code\HighScoreController.cs
                 _scores.RemoveAt(_scores.Count - 1);
                 _scores.Add(s);
                 _scores.Sort();

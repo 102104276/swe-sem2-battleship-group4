@@ -86,7 +86,6 @@ namespace BattleShips
         private const int GAME_MENU_NO_MUSIC_SFX = 2;
         private const int GAME_MENU_MUSIC_NO_SFX = 3;
         private const int GAME_MENU_NO_MUSIC_NO_SFX = 4;
-        
 
         private const int SETUP_MENU = 5;
 		private const int MAIN_MENU_PLAY_BUTTON = 0;
@@ -385,7 +384,7 @@ namespace BattleShips
                     }
                     else
                     {
-                        UtilityFunctions.PlayMusic();
+                        UtilityFunctions.PlayMuisc();
                     }
                     break;
 

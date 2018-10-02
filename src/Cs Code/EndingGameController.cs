@@ -16,7 +16,7 @@ namespace BattleShips
          //Remarks: Isuru: Updated to new swingame call
         public static void DrawEndOfGame()
         {
-            UtilityFunctions.DrawField(GameController.ComputerPlayer.PlayerGrid, GameController.ComputerPlayer, true);
+            UtilityFunctions.DrawField(GameController.ComputerPlayer.PlayerGrid, GameController.ComputerPlayer, true, false);
             UtilityFunctions.DrawSmallField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer);
 
             Rectangle toDraw = new Rectangle();
