@@ -60,6 +60,7 @@ namespace BattleShips
             const int SPLASH_TOP = 256;
 
 
+
             //sets parameter to true if the player presses key combination of Shift + C
             if ((SwinGame.KeyDown(KeyCode.vk_RSHIFT) | SwinGame.KeyDown(KeyCode.vk_LSHIFT)) & SwinGame.KeyDown(KeyCode.vk_c))
             {
@@ -67,8 +68,9 @@ namespace BattleShips
             }
             else
             {
-                UtilityFunctions.DrawField(GameController.HumanPlayer.EnemyGrid, GameController.ComputerPlayer, false);
+                UtilityFunctions.DrawField(GameController.HumanPlayer.EnemyGrid, GameController.ComputerPlayer, true, true);
             }
+
 
             UtilityFunctions.DrawSmallField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer);
             UtilityFunctions.DrawMessage();
