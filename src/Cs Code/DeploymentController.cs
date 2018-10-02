@@ -44,6 +44,10 @@ namespace BattleShips
         private const int CLEAR_BUTTON_WIDTH = 56;
         private const int CLEAR_BUTTON_LEFT = 620;
 
+        private const int BACK_BUTTON_LEFT = 710;
+        private const int BACK_BUTTON_WIDTH = 60;
+        private const int BACK_BUTTON_TOP = 5;
+
         // Summary: Handles user input for the Deployment phase of the game.
         /*
           Remarks: Involves selecting the ships, deloying ships, changing the direction
@@ -115,6 +119,11 @@ namespace BattleShips
                     {
                         //clears board
                         GameController.HumanPlayer.PlayerGrid.ClearBoard();
+                    }
+                    else if (UtilityFunctions.IsMouseInRectangle(BACK_BUTTON_LEFT, BACK_BUTTON_TOP, BACK_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
+                    {
+                        //Goes back to main menu
+                        GameController.AddNewState(GameState.ViewingMainMenu);
                     }
                     else if (UtilityFunctions.IsMouseInRectangle(HELP_BUTTON_LEFT, TOP_BUTTONS_TOP, CLEAR_BUTTON_WIDTH, CLEAR_BUTTON_HEIGHT))
                     {
@@ -258,6 +267,7 @@ namespace BattleShips
             //clear button
             SwinGame.DrawBitmap(GameResources.GameImage("Clear"), 620, TOP_BUTTONS_TOP);
 
+            SwinGame.DrawBitmap(GameResources.GameImage("Back"), BACK_BUTTON_LEFT, BACK_BUTTON_TOP);
 
             //draw help button
             SwinGame.DrawBitmap(GameResources.GameImage("Help"), HELP_BUTTON_LEFT, TOP_BUTTONS_TOP);
